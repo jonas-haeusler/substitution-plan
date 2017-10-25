@@ -1,4 +1,4 @@
-package de.jonashaeusler.vertretrungsplan.fragments
+package de.jonashaeusler.vertretungsplan.fragments
 
 import android.os.AsyncTask
 import android.os.Bundle
@@ -9,15 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import de.jonashaeusler.vertretrungsplan.R
-import de.jonashaeusler.vertretrungsplan.adapter.EventAdapter
-import de.jonashaeusler.vertretrungsplan.helpers.dpToPx
-import de.jonashaeusler.vertretrungsplan.helpers.getPassword
-import de.jonashaeusler.vertretrungsplan.helpers.getUsername
-import de.jonashaeusler.vertretrungsplan.models.Event
-import de.jonashaeusler.vertretrungsplan.network.EventTask
-import de.jonashaeusler.vertretrungsplan.network.SubstitutesTask
-import de.jonashaeusler.vertretrungsplan.widgets.DividerItemDecoration
+import de.jonashaeusler.vertretungsplan.R
+import de.jonashaeusler.vertretungsplan.adapter.EventAdapter
+import de.jonashaeusler.vertretungsplan.helpers.dpToPx
+import de.jonashaeusler.vertretungsplan.helpers.getPassword
+import de.jonashaeusler.vertretungsplan.helpers.getUsername
+import de.jonashaeusler.vertretungsplan.models.Event
+import de.jonashaeusler.vertretungsplan.network.EventTask
+import de.jonashaeusler.vertretungsplan.network.SubstitutesTask
+import de.jonashaeusler.vertretungsplan.widgets.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_substitutes.*
 import java.lang.ref.WeakReference
 

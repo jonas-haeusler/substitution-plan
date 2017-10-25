@@ -1,11 +1,11 @@
-package de.jonashaeusler.vertretrungsplan.widgets
+package de.jonashaeusler.vertretungsplan.widgets
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import de.jonashaeusler.vertretrungsplan.R
+import de.jonashaeusler.vertretungsplan.R
 
 class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.item_divider)

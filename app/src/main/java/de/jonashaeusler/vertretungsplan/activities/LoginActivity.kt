@@ -1,15 +1,15 @@
-package de.jonashaeusler.vertretrungsplan.activities
+package de.jonashaeusler.vertretungsplan.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import de.jonashaeusler.vertretrungsplan.R
-import de.jonashaeusler.vertretrungsplan.helpers.isLoggedIn
-import de.jonashaeusler.vertretrungsplan.helpers.setClassShortcut
-import de.jonashaeusler.vertretrungsplan.helpers.setPassword
-import de.jonashaeusler.vertretrungsplan.helpers.setUsername
-import de.jonashaeusler.vertretrungsplan.network.LoginTask
+import de.jonashaeusler.vertretungsplan.R
+import de.jonashaeusler.vertretungsplan.helpers.isLoggedIn
+import de.jonashaeusler.vertretungsplan.helpers.setClassShortcut
+import de.jonashaeusler.vertretungsplan.helpers.setPassword
+import de.jonashaeusler.vertretungsplan.helpers.setUsername
+import de.jonashaeusler.vertretungsplan.network.LoginTask
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**

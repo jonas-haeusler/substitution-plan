@@ -1,7 +1,7 @@
-package de.jonashaeusler.vertretrungsplan.network
+package de.jonashaeusler.vertretungsplan.network
 
 import android.os.AsyncTask
-import de.jonashaeusler.vertretrungsplan.models.Event
+import de.jonashaeusler.vertretungsplan.models.Event
 
 /**
  * AsyncTask to get events from the "schulbot"-API.

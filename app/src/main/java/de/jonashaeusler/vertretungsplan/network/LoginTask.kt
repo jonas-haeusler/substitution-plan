@@ -1,4 +1,4 @@
-package de.jonashaeusler.vertretrungsplan.network
+package de.jonashaeusler.vertretungsplan.network
 
 import android.os.AsyncTask
 

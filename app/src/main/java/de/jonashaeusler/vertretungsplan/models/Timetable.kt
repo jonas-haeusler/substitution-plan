@@ -1,4 +1,4 @@
-package de.jonashaeusler.vertretrungsplan.models
+package de.jonashaeusler.vertretungsplan.models
 
 /**
  * Basic model for a so called "timetable" retrieved from dsb.
