@@ -19,7 +19,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-package de.jonashaeusler.vertretrungsplan.network;
+package de.jonashaeusler.vertretungsplan.network;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

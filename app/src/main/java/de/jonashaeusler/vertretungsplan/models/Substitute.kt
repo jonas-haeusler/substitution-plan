@@ -1,4 +1,4 @@
-package de.jonashaeusler.vertretrungsplan.models
+package de.jonashaeusler.vertretungsplan.models
 
 import java.text.SimpleDateFormat
 import java.util.*

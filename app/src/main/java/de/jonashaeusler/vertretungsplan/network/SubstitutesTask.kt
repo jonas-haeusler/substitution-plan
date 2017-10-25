@@ -1,12 +1,12 @@
-package de.jonashaeusler.vertretrungsplan.network
+package de.jonashaeusler.vertretungsplan.network
 
 import android.content.Context
 import android.os.AsyncTask
-import de.jonashaeusler.vertretrungsplan.R
-import de.jonashaeusler.vertretrungsplan.helpers.getClassShortcut
-import de.jonashaeusler.vertretrungsplan.helpers.logout
-import de.jonashaeusler.vertretrungsplan.models.Event
-import de.jonashaeusler.vertretrungsplan.models.Timetable
+import de.jonashaeusler.vertretungsplan.R
+import de.jonashaeusler.vertretungsplan.helpers.getClassShortcut
+import de.jonashaeusler.vertretungsplan.helpers.logout
+import de.jonashaeusler.vertretungsplan.models.Event
+import de.jonashaeusler.vertretungsplan.models.Timetable
 import org.json.JSONArray
 import org.jsoup.Jsoup
 import java.lang.ref.WeakReference

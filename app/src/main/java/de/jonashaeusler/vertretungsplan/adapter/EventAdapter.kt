@@ -1,12 +1,12 @@
-package de.jonashaeusler.vertretrungsplan.adapter
+package de.jonashaeusler.vertretungsplan.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import de.jonashaeusler.vertretrungsplan.R
-import de.jonashaeusler.vertretrungsplan.models.Event
+import de.jonashaeusler.vertretungsplan.R
+import de.jonashaeusler.vertretungsplan.models.Event
 import kotlinx.android.synthetic.main.item_substitute.view.*
 import java.text.SimpleDateFormat
 import java.util.*

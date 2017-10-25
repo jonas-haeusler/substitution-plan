@@ -1,4 +1,4 @@
-package de.jonashaeusler.vertretrungsplan.helpers
+package de.jonashaeusler.vertretungsplan.helpers
 
 import android.content.Context
 import android.support.v4.app.Fragment
