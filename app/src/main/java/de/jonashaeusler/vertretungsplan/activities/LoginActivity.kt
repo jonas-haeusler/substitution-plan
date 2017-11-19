@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity(), LoginTask.OnLogin {
 
         setContentView(R.layout.activity_login)
         setSupportActionBar(toolbar)
+        setTitle(R.string.login)
 
         login.setOnClickListener {
             when {
