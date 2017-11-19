@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.helpers.getClassShortcut
 import de.jonashaeusler.vertretungsplan.helpers.logout
+import de.jonashaeusler.vertretungsplan.interfaces.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.models.Event
 import de.jonashaeusler.vertretungsplan.models.Timetable
 import org.json.JSONArray
@@ -14,9 +15,12 @@ import java.lang.ref.WeakReference
 /**
  * This class retrieves all available events which match the class filter,
  * parses them to [Event] objects and returns them as a list sorted by [Event.date].
+ *
+ * Pass the user credentials to [doInBackground].
  */
-class SubstitutesTask(private val context: WeakReference<Context>, private val callback: OnSubstitutesFetched? = null) :
+class SubstitutionTask(private val context: WeakReference<Context>, private val callback: OnEventsFetched? = null) :
         AsyncTask<String, Long, Boolean>() {
+
     private val substitutes = mutableListOf<Event>()
 
     override fun doInBackground(vararg args: String): Boolean {
@@ -35,7 +39,7 @@ class SubstitutesTask(private val context: WeakReference<Context>, private val c
                 return false
             }
 
-            // This request will contains a json file holding one or more "timetables"
+            // This request will contain a json file holding one or more "timetables"
             val timetableRequest = HttpRequest
                     .get("https://iphone.dsbcontrol.de/iPhoneService.svc/DSB/timetables/$authIdRequest")
                     .body()
@@ -56,12 +60,11 @@ class SubstitutesTask(private val context: WeakReference<Context>, private val c
             // Let's iterate over all the retrieved timetables, extract the necessary info
             // from the urls and parse them into our event module class
             for (timetable in timetableList) {
-                println(timetable.timetableUrl)
                 val document = Jsoup.parse(HttpRequest.get(timetable.timetableUrl).body())
-                for (coverPlan in document.getElementsByTag("center")) {
-                    val date = coverPlan.getElementsByTag("div").text()
+                for (substitutePlan in document.getElementsByTag("center")) {
+                    val date = substitutePlan.getElementsByTag("div").text()
                     context.get()?.let { context ->
-                        coverPlan.select("tr")
+                        substitutePlan.select("tr")
                                 .map { it.select("td") }
                                 .filterNot { it.isEmpty() }
                                 .filterNot { it.size < 8 }
@@ -88,14 +91,9 @@ class SubstitutesTask(private val context: WeakReference<Context>, private val c
     override fun onPostExecute(result: Boolean) {
         if (result) {
             substitutes.sortBy { it.date }
-            callback?.onSubstitutesFetched(substitutes)
+            callback?.onEventFetchSuccess(substitutes)
         } else {
-            callback?.onSubstitutesFetchError()
+            callback?.onEventFetchError()
         }
-    }
-
-    interface OnSubstitutesFetched {
-        fun onSubstitutesFetched(events: List<Event>)
-        fun onSubstitutesFetchError()
     }
 }
