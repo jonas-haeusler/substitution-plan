@@ -1,6 +1,7 @@
 package de.jonashaeusler.vertretungsplan.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -19,7 +20,6 @@ class EventAdapter(val events: MutableList<Event>) :
     private var dayDateFormat = SimpleDateFormat("d", Locale.getDefault())
     private var monthDateFormat = SimpleDateFormat("MMM", Locale.getDefault())
     private val currentMonth = monthDateFormat.format(Calendar.getInstance().timeInMillis)
-    private val currentDay = dayDateFormat.format(Calendar.getInstance().timeInMillis).toInt()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = View.inflate(parent.context, R.layout.item_substitute, null)
@@ -55,7 +55,7 @@ class EventAdapter(val events: MutableList<Event>) :
         // hide first step line
         holder.stepLineTop.visibility = if (position == 0) View.INVISIBLE else View.VISIBLE
         // highlight first occurrent of the current day
-        holder.dayHighlight.visibility = if (day == currentDay && day != lastDay) View.VISIBLE else View.INVISIBLE
+        holder.dayHighlight.visibility = if (DateUtils.isToday(event.getDateInMs()) && day != lastDay) View.VISIBLE else View.INVISIBLE
     }
 
     override fun getItemCount(): Int = events.size
