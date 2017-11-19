@@ -11,6 +11,7 @@ import de.jonashaeusler.vertretungsplan.helpers.setPassword
 import de.jonashaeusler.vertretungsplan.helpers.setUsername
 import de.jonashaeusler.vertretungsplan.network.LoginTask
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 
 /**
  * Activity to get the user logged in.
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity(), LoginTask.OnLogin {
         }
 
         setContentView(R.layout.activity_login)
-        setTitle(R.string.login)
+        setSupportActionBar(toolbar)
 
         login.setOnClickListener {
             when {

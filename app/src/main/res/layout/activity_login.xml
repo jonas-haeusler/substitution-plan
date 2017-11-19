@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.MyTheme.AppBarOverlay">
+
+        <include
+            layout="@layout/layout_toolbar"/>
+
+    </android.support.design.widget.AppBarLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -99,12 +109,12 @@
         android:background="@color/dividerColor"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_margin="16dp"
         android:id="@+id/login"
-        android:backgroundTint="@color/colorAccent"
-        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login"/>
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/login"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>
