@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     }
 
     override fun onEventFetchSuccess(events: List<Event>) {
-        adapter.addAll(events)
+        adapter.addAll(events.filter { it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis() })
         showRecyclerView()
     }
 
