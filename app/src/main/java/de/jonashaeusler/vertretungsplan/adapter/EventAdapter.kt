@@ -15,7 +15,7 @@ class EventAdapter(val events: MutableList<Event>) :
 
     var itemClickListener: ((Event) -> Unit)? = null
 
-    private var dateDateFormat = SimpleDateFormat("dd. MMMM YYYY", Locale.getDefault())
+    private var dateDateFormat = SimpleDateFormat("dd. MMMM yyyy", Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = View.inflate(parent.context, R.layout.item_event, null)
