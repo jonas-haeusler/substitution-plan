@@ -24,8 +24,8 @@ class LoginActivity : AppCompatActivity(), LoginTask.OnLogin {
         super.onCreate(savedInstanceState)
 
         if (isLoggedIn()) {
-            finish()
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
             return
         }
 
@@ -47,8 +47,8 @@ class LoginActivity : AppCompatActivity(), LoginTask.OnLogin {
         setUsername(username.text.toString())
         setPassword(password.text.toString())
         setClassShortcut(classShortcut.text.toString())
-        finish()
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onLoginFailed() {
