@@ -12,7 +12,7 @@ data class Event(val date: String, val title: String, val text: String, val type
     enum class EventType {
         TYPE_HOMEWORK,
         TYPE_SUBSTITUTE,
-        TYPE_CLASS_TEST
+        TYPE_EXAM
     }
 
     fun getDateInMs(): Long {
