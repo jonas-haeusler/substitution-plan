@@ -22,10 +22,10 @@ class ExamTask(private val callback: OnEventsFetched? = null) :
                     .map {
                         if (it.size < 3) {
                             Event(date = it[0], title = it[1], text = "",
-                                    type = Event.EventType.TYPE_HOMEWORK)
+                                    type = Event.EventType.TYPE_EXAM)
                         } else {
                             Event(date = it[0], title = it[1], text = it[2],
-                                type = Event.EventType.TYPE_HOMEWORK)
+                                    type = Event.EventType.TYPE_EXAM)
                         }
                     })
 

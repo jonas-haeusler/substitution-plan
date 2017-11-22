@@ -24,7 +24,7 @@ class HomeworkTask(private val callback: OnEventsFetched? = null) :
                                     type = Event.EventType.TYPE_HOMEWORK)
                         } else {
                             Event(date = it[0], title = it[1], text = it[2],
-                                type = Event.EventType.TYPE_HOMEWORK)
+                                    type = Event.EventType.TYPE_HOMEWORK)
                         }
                     })
 
