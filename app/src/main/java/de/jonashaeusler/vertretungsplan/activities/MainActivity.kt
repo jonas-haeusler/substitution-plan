@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.ViewPagerAdapter
-import de.jonashaeusler.vertretungsplan.fragments.EventFragment
 import de.jonashaeusler.vertretungsplan.fragments.ExamFragment
 import de.jonashaeusler.vertretungsplan.fragments.HomeworkFragment
 import de.jonashaeusler.vertretungsplan.fragments.SubstitutionFragment
@@ -21,14 +20,14 @@ import kotlinx.android.synthetic.main.dialog_change_class.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 class MainActivity : AppCompatActivity() {
-    private var eventFragment: EventFragment? = null
+    private lateinit var adapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activty_main)
         setSupportActionBar(toolbar)
 
-        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
         adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
         adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         builder.setView(view)
         builder.setPositiveButton(R.string.okay, { _, _ ->
             setClassShortcut(view.classShortcut.text.toString())
-            eventFragment?.loadEvents()
+            (adapter.getFragment(0) as? SubstitutionFragment)?.loadEvents()
         })
         builder.create().show()
     }

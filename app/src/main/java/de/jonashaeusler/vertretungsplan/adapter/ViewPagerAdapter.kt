@@ -34,7 +34,13 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
      * @param position The position of the fragment to be retrieved.
      * @return Returns the fragment at index [position].
      */
-    fun getFragment(position: Int): Fragment = mFragmentList[position]
+    fun getFragment(position: Int): Fragment? {
+        return if (mFragmentList.size > position) {
+            mFragmentList[position]
+        } else {
+            null
+        }
+    }
 
     /**
      * @return Returns all added fragments.
