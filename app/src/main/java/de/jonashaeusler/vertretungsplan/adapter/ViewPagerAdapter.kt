@@ -43,7 +43,24 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     }
 
     /**
+     * Remove a fragment previously added.
+     *
+     * @param fragment The fragment to remove.
+     */
+    fun removeFragment(position: Int) {
+        if (mFragmentList.size > position) {
+            mFragmentList.removeAt(position)
+            mFragmentTitleList.removeAt(position)
+        }
+    }
+
+    /**
      * @return Returns all added fragments.
      */
     fun getAllFragments(): ArrayList<Fragment> = mFragmentList
+
+    /**
+     * @return The amount of added fragments.
+     */
+    fun size(): Int = mFragmentList.size
 }

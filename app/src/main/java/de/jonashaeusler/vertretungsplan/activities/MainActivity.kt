@@ -29,8 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
-        adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
-        adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
+        if (getClassShortcut().contains(Regex("tg(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+            adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
+            adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
+            tabLayout.visibility = View.VISIBLE
+        } else {
+            tabLayout.visibility = View.GONE
+        }
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 2
 
@@ -66,6 +71,21 @@ class MainActivity : AppCompatActivity() {
         builder.setPositiveButton(R.string.okay, { _, _ ->
             setClassShortcut(view.classShortcut.text.toString())
             (adapter.getFragment(0) as? SubstitutionFragment)?.loadEvents()
+
+            if (getClassShortcut().contains(Regex("tg(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+                if (adapter.size() == 1) {
+                    adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
+                    adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
+                    adapter.notifyDataSetChanged()
+                    tabLayout.visibility = View.VISIBLE
+                }
+            } else {
+                adapter.removeFragment(2)
+                adapter.removeFragment(1)
+                adapter.notifyDataSetChanged()
+                viewPager.currentItem = 0
+                tabLayout.visibility = View.GONE
+            }
         })
         builder.create().show()
     }
