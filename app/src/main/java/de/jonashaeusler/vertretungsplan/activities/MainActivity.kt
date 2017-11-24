@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
-        if (getClassShortcut().contains(Regex("tg(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+        if (getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))) {
             adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
             adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
             tabLayout.visibility = View.VISIBLE
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             setClassShortcut(view.classShortcut.text.toString())
             (adapter.getFragment(0) as? SubstitutionFragment)?.loadEvents()
 
-            if (getClassShortcut().contains(Regex("tg(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+            if (getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))) {
                 if (adapter.size() == 1) {
                     adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
                     adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
