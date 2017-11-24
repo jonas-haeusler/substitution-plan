@@ -3,14 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
     android:background="?selectableItemBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <CheckBox
+        android:id="@+id/completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="16dp"/>
 
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/completed"
         android:maxLines="1"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"/>
@@ -20,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/date"
+        android:layout_toEndOf="@+id/completed"
         android:maxLines="1"
         android:textColor="@color/textColorPrimary"
         android:textSize="16sp"/>
@@ -29,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
+        android:layout_toEndOf="@+id/completed"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/textColorSecondary"

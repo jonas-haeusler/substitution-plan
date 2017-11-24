@@ -3,17 +3,23 @@ package de.jonashaeusler.vertretungsplan.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.TextView
 import de.jonashaeusler.vertretungsplan.R
+import de.jonashaeusler.vertretungsplan.helpers.reverseStrikeThroughAnimation
+import de.jonashaeusler.vertretungsplan.helpers.startStrikeThroughAnimation
 import de.jonashaeusler.vertretungsplan.models.Event
 import kotlinx.android.synthetic.main.item_event.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class EventAdapter(val events: MutableList<Event>) :
         RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
-    var itemClickListener: ((Event) -> Unit)? = null
+    var itemClickListener: ((event: Event) -> Unit)? = null
+    var checkedChangedListener: ((event: Event, value: Boolean) -> Unit)? = null
 
     private var dateDateFormat = SimpleDateFormat("dd. MMMM yyyy", Locale.getDefault())
 
@@ -29,8 +35,31 @@ class EventAdapter(val events: MutableList<Event>) :
         holder.text.text = event.text
         holder.date.text = dateDateFormat.format(event.getDateInMs())
         holder.itemView.setOnClickListener { itemClickListener?.invoke(event) }
+        holder.completed.setOnCheckedChangeListener { _: CompoundButton, value: Boolean ->
+            checkedChangedListener?.invoke(event, value)
+            if (value) {
+                holder.title.startStrikeThroughAnimation()
+                holder.text.startStrikeThroughAnimation()
+                holder.date.startStrikeThroughAnimation()
+            } else {
+                holder.title.reverseStrikeThroughAnimation()
+                holder.text.reverseStrikeThroughAnimation()
+                holder.date.reverseStrikeThroughAnimation()
+            }
+        }
 
-        holder.text.visibility = if (event.text.isBlank()) View.GONE else View.VISIBLE
+        if (event.completed) {
+            holder.completed.isChecked = true
+            holder.title.startStrikeThroughAnimation()
+            holder.text.startStrikeThroughAnimation()
+            holder.date.startStrikeThroughAnimation()
+        }
+
+        holder.text.visibility =
+                if (event.text.isBlank()) View.GONE else View.VISIBLE
+        holder.completed.visibility =
+                if (event.type == Event.EventType.TYPE_HOMEWORK) View.VISIBLE else View.GONE
+
     }
 
     override fun getItemCount(): Int = events.size
@@ -39,6 +68,7 @@ class EventAdapter(val events: MutableList<Event>) :
         val title: TextView = itemView.title
         val text: TextView = itemView.text
         val date: TextView = itemView.date
+        val completed: CheckBox = itemView.completed
     }
 
     fun addAll(events: List<Event>) {

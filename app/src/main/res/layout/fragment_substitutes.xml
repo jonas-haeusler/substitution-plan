@@ -4,18 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <de.jonashaeusler.vertretungsplan.views.EmptyRecyclerView
         android:id="@+id/recyclerView"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/shrug"
+        android:textSize="28sp"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/containerConnectionError"
-        android:visibility="gone"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/error_no_connection"
@@ -39,10 +48,10 @@
     </RelativeLayout>
 
     <ProgressBar
-        android:visibility="gone"
-        android:layout_centerInParent="true"
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

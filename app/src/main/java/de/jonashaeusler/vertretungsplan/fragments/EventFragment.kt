@@ -1,7 +1,9 @@
 package de.jonashaeusler.vertretungsplan.fragments
 
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -21,20 +23,25 @@ import kotlinx.android.synthetic.main.fragment_substitutes.*
 abstract class EventFragment : Fragment(), OnEventsFetched {
     abstract var eventTask: AsyncTask<String, Long, Boolean>?
     private lateinit var adapter: EventAdapter
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var completedEvents: MutableSet<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_substitutes, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_substitutes, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        loadCompletedEvents()
         setupRecyclerView()
         loadEvents()
         reload.setOnClickListener { loadEvents() }
     }
 
     override fun onEventFetchSuccess(events: List<Event>) {
-        adapter.addAll(events.filter { it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis() })
+        adapter.addAll(events
+                .filter { it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis() }
+                .onEach { it.completed = completedEvents.contains(it.hashCode().toString()) })
         showRecyclerView()
     }
 
@@ -50,17 +57,50 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     fun loadEvents() {
         showLoadingView()
         adapter.events.clear()
-        eventTask?.executeOnExecutor(
-                AsyncTask.THREAD_POOL_EXECUTOR, activity.getUsername(), activity.getPassword())
+        eventTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                activity.getUsername(), activity.getPassword())
     }
 
     private fun setupRecyclerView() {
         adapter = EventAdapter((emptyList<Event>()).toMutableList())
 
         recyclerView.adapter = adapter
+        recyclerView.setEmptyView(emptyView)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.addItemDecoration(DividerItemDecoration(activity))
         adapter.itemClickListener = { showSubstituteInfo(it) }
+        adapter.checkedChangedListener = { event: Event, value: Boolean ->
+            if (value) {
+                addCompletedEvent(event)
+            } else {
+                removeCompletedEvent(event)
+            }
+        }
+    }
+
+    private fun loadCompletedEvents() {
+        completedEvents = sharedPreferences
+                .getString("events_completed", "")
+                .split(", ")
+                .toMutableSet()
+    }
+
+    private fun addCompletedEvent(event: Event) {
+        completedEvents.add(event.hashCode().toString())
+
+        sharedPreferences
+                .edit()
+                .putString("events_completed", completedEvents.joinToString())
+                .apply()
+    }
+
+    private fun removeCompletedEvent(event: Event) {
+        completedEvents.remove(event.hashCode().toString())
+
+        sharedPreferences
+                .edit()
+                .putString("events_completed", completedEvents.joinToString())
+                .apply()
     }
 
     private fun showSubstituteInfo(event: Event) {
@@ -87,5 +127,6 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         progressBar.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
         containerConnectionError.visibility = View.GONE
+        emptyView.visibility = View.GONE
     }
 }
