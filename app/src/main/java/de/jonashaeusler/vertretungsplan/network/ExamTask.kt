@@ -19,14 +19,10 @@ class ExamTask(private val callback: OnEventsFetched? = null) :
                     .replace("\n", ", ")
                     .split("--..--..--")
                     .map { it.split("--..--") }
+                    .filter { it.size >= 2 }
                     .map {
-                        if (it.size < 3) {
-                            Event(date = it[0], title = it[1], text = "",
-                                    type = Event.EventType.TYPE_EXAM)
-                        } else {
-                            Event(date = it[0], title = it[1], text = it[2],
-                                    type = Event.EventType.TYPE_EXAM)
-                        }
+                        Event(date = it[0], title = it[1], text = if (it.size > 2) it[2] else "",
+                                type = Event.EventType.TYPE_EXAM)
                     })
 
             true
