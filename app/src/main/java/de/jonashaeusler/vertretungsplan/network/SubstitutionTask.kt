@@ -2,6 +2,7 @@ package de.jonashaeusler.vertretungsplan.network
 
 import android.content.Context
 import android.os.AsyncTask
+import com.github.kevinsawicki.http.HttpRequest
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.helpers.getClassShortcut
 import de.jonashaeusler.vertretungsplan.helpers.logout

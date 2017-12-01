@@ -1,6 +1,7 @@
 package de.jonashaeusler.vertretungsplan.network
 
 import android.os.AsyncTask
+import com.github.kevinsawicki.http.HttpRequest
 import de.jonashaeusler.vertretungsplan.interfaces.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.models.Event
 

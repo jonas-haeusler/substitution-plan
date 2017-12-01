@@ -26,4 +26,5 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.10.3'
     implementation'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
+    implementation 'com.github.kevinsawicki:http-request:http-request-6.0'
 }

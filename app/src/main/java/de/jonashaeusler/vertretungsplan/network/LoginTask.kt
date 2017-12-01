@@ -1,6 +1,7 @@
 package de.jonashaeusler.vertretungsplan.network
 
 import android.os.AsyncTask
+import com.github.kevinsawicki.http.HttpRequest
 
 /**
  * Class to check whether the login credentials are correct.
