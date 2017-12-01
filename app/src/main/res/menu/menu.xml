@@ -3,8 +3,13 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_changeClass"
+        android:id="@+id/menu_change_class"
         android:title="@string/change_class_shortcut"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_server_status"
+        android:title="@string/server_status"
         app:showAsAction="never"/>
 
     <item

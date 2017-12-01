@@ -18,10 +18,10 @@ import java.util.*
 class EventAdapter(val events: MutableList<Event>) :
         RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
+    private val dateFormat = SimpleDateFormat("dd. MMMM yyyy", Locale.getDefault())
+
     var itemClickListener: ((event: Event) -> Unit)? = null
     var checkedChangedListener: ((event: Event, value: Boolean) -> Unit)? = null
-
-    private var dateDateFormat = SimpleDateFormat("dd. MMMM yyyy", Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = View.inflate(parent.context, R.layout.item_event, null)
@@ -36,7 +36,7 @@ class EventAdapter(val events: MutableList<Event>) :
         if (event.getDateInMs() == -1L) {
             holder.date.setText(R.string.error_no_date_provided)
         } else {
-            holder.date.text = dateDateFormat.format(event.getDateInMs())
+            holder.date.text = dateFormat.format(event.getDateInMs())
         }
         holder.itemView.setOnClickListener { itemClickListener?.invoke(event) }
         holder.completed.setOnCheckedChangeListener { _: CompoundButton, value: Boolean ->
