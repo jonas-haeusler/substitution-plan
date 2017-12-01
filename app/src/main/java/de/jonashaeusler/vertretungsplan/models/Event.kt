@@ -1,5 +1,6 @@
 package de.jonashaeusler.vertretungsplan.models
 
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,12 +35,16 @@ data class Event(val date: String, val title: String, val text: String,
     }
 
     fun getDateInMs(): Long {
-        val dateFormat = if (date.length == 8) {
-            SimpleDateFormat("dd.MM.yy", Locale.getDefault())
-        } else {
-            SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        }
+        return try {
+            val dateFormat = if (date.length == 8) {
+                SimpleDateFormat("dd.MM.yy", Locale.getDefault())
+            } else {
+                SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            }
 
-        return dateFormat.parse(this.date).time
+            dateFormat.parse(this.date).time
+        } catch (e: ParseException) {
+            -1
+        }
     }
 }

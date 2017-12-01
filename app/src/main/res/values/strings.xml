@@ -12,9 +12,9 @@
     <string name="substitution_title">%1$s in der %2$s. Stunde</string>
     <string name="substitution_text">%1$s in Raum %2$s anstatt %3$s in Raum %4$s</string>
     <string name="error_no_connection">Fehler beim Laden der Daten. Verbindung prüfen und erneut versuchen.</string>
-    <string name="error_parsing_homework">Beim Verarbeiten der Hausaufgaben ist ein Fehler aufgetreten</string>
     <string name="error_blank_field">Dieses Feld muss ausgefüllt sein!</string>
     <string name="error_login_failed">Login fehlgeschlagen</string>
+    <string name="error_no_date_provided">Kein Datum verfügbar</string>
     <string name="reload">Neu laden</string>
     <string name="change_class_shortcut">Klassenkürzel ändern</string>
     <string name="licenses">Lizenzen</string>

@@ -33,7 +33,11 @@ class EventAdapter(val events: MutableList<Event>) :
 
         holder.title.text = event.title
         holder.text.text = event.text
-        holder.date.text = dateDateFormat.format(event.getDateInMs())
+        if (event.getDateInMs() == -1L) {
+            holder.date.setText(R.string.error_no_date_provided)
+        } else {
+            holder.date.text = dateDateFormat.format(event.getDateInMs())
+        }
         holder.itemView.setOnClickListener { itemClickListener?.invoke(event) }
         holder.completed.setOnCheckedChangeListener { _: CompoundButton, value: Boolean ->
             checkedChangedListener?.invoke(event, value)
