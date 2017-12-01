@@ -18,7 +18,7 @@ import de.jonashaeusler.vertretungsplan.helpers.getUsername
 import de.jonashaeusler.vertretungsplan.interfaces.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.models.Event
 import de.jonashaeusler.vertretungsplan.widgets.DividerItemDecoration
-import kotlinx.android.synthetic.main.fragment_substitutes.*
+import kotlinx.android.synthetic.main.fragment_events.*
 
 abstract class EventFragment : Fragment(), OnEventsFetched {
     abstract var eventTask: AsyncTask<String, Long, Boolean>?
@@ -27,7 +27,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     private lateinit var completedEvents: MutableSet<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_substitutes, container, false)
+            inflater.inflate(R.layout.fragment_events, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +36,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         setupRecyclerView()
         loadEvents()
         reload.setOnClickListener { loadEvents() }
+        swipeRefreshLayout.setOnRefreshListener { loadEvents() }
     }
 
     override fun onEventFetchSuccess(events: List<Event>) {
@@ -115,19 +116,19 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     }
 
     private fun showErrorView() {
+        swipeRefreshLayout.isRefreshing = false
         containerConnectionError.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
-        progressBar.visibility = View.GONE
     }
 
     private fun showRecyclerView() {
+        swipeRefreshLayout.isRefreshing = false
         recyclerView.visibility = View.VISIBLE
         containerConnectionError.visibility = View.GONE
-        progressBar.visibility = View.GONE
     }
 
     private fun showLoadingView() {
-        progressBar.visibility = View.VISIBLE
+        swipeRefreshLayout.isRefreshing = true
         recyclerView.visibility = View.GONE
         containerConnectionError.visibility = View.GONE
         emptyView.visibility = View.GONE
