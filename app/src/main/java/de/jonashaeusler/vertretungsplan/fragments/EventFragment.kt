@@ -7,6 +7,7 @@ import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,10 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
 
     override fun onEventFetchSuccess(events: List<Event>) {
         adapter.addAll(events
+                .filterNot {
+                    it.type == Event.EventType.TYPE_SUBSTITUTE
+                            && it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis()
+                }
                 .onEach { it.completed = completedEvents.contains(it.hashCode().toString()) })
         showRecyclerView()
     }
