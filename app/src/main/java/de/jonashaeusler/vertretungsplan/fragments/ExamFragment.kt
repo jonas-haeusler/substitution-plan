@@ -8,4 +8,6 @@ class ExamFragment : EventFragment() {
         get() {
             return ExamTask(this)
         }
+
+    override fun onReload() {}
 }

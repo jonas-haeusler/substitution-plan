@@ -37,6 +37,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         loadEvents()
         reload.setOnClickListener { loadEvents() }
         swipeRefreshLayout.setOnRefreshListener { loadEvents() }
+
     }
 
     override fun onEventFetchSuccess(events: List<Event>) {
@@ -58,11 +59,15 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         eventTask?.cancel(true)
     }
 
+    abstract fun onReload()
+
     fun loadEvents() {
         showLoadingView()
         adapter.events.clear()
         eventTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                 activity.getUsername(), activity.getPassword())
+
+        onReload()
     }
 
     private fun setupRecyclerView() {

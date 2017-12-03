@@ -22,4 +22,5 @@
     <string name="server_status">Serverstatus</string>
     <string name="loading">Lädt…</string>
     <string name="server_status_message">&lt;b>Status:&lt;/b> %1$s&lt;br/>&lt;b>Letzte Aktualisierung: &lt;/b>&lt;br/>%2$s</string>
+    <string name="info">Info</string>
 </resources>
