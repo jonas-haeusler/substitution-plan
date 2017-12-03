@@ -44,7 +44,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         adapter.addAll(events
                 .filterNot {
                     it.type == Event.EventType.TYPE_SUBSTITUTE
-                            && it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis()
+                            && it.getDateInMs() + DateUtils.DAY_IN_MILLIS < System.currentTimeMillis()
                 }
                 .onEach { it.completed = completedEvents.contains(it.hashCode().toString()) })
         showRecyclerView()
