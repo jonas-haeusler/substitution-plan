@@ -27,7 +27,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(), OnServerStatusResolved {
     private lateinit var adapter: ViewPagerAdapter
     private var serverStatusDialog: AlertDialog? = null
-    private val dateFormat = SimpleDateFormat("dd. MMMM yyyy", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("dd. MMMM yyyy, HH:mm", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
