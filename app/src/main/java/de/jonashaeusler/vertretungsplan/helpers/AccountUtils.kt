@@ -58,3 +58,6 @@ fun Context.setClassShortcut(classShort: String) {
             .putString(userClassShortcut, classShort)
             .apply()
 }
+
+fun Context.isTgi11(): Boolean =
+        getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))

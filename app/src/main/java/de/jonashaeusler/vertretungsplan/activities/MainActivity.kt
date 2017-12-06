@@ -14,6 +14,7 @@ import de.jonashaeusler.vertretungsplan.fragments.ExamFragment
 import de.jonashaeusler.vertretungsplan.fragments.HomeworkFragment
 import de.jonashaeusler.vertretungsplan.fragments.SubstitutionFragment
 import de.jonashaeusler.vertretungsplan.helpers.getClassShortcut
+import de.jonashaeusler.vertretungsplan.helpers.isTgi11
 import de.jonashaeusler.vertretungsplan.helpers.logout
 import de.jonashaeusler.vertretungsplan.helpers.setClassShortcut
 import de.jonashaeusler.vertretungsplan.interfaces.OnServerStatusResolved
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
 
         adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
-        if (getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+        if (isTgi11()) {
             adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
             adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
             tabLayout.visibility = View.VISIBLE
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+        menu.findItem(R.id.menu_server_status).isVisible = isTgi11()
         return true
     }
 
@@ -84,9 +86,10 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
         builder.setView(view)
         builder.setPositiveButton(R.string.okay, { _, _ ->
             setClassShortcut(view.classShortcut.text.toString())
+            invalidateOptionsMenu()
             (adapter.getFragment(0) as? SubstitutionFragment)?.loadEvents()
 
-            if (getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+            if (isTgi11()) {
                 if (adapter.size() == 1) {
                     adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
                     adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
