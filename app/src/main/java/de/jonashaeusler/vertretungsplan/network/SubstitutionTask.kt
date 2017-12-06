@@ -61,7 +61,7 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
             // Let's iterate over all the retrieved timetables, extract the necessary info
             // from the urls and parse them into our event module class
             for (timetable in timetableList) {
-                val document = Jsoup.parse(HttpRequest.get(timetable.timetableUrl).body())
+                val document = Jsoup.parse(HttpRequest.get(timetable.timetableUrl).body("iso-8859-1"))
                 for (substitutePlan in document.getElementsByTag("center")) {
                     val date = substitutePlan.getElementsByTag("div").text()
                     context.get()?.let { context ->
