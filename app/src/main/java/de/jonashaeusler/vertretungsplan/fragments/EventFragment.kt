@@ -31,6 +31,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        retainInstance = true
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
         loadCompletedEvents()
         setupRecyclerView()
