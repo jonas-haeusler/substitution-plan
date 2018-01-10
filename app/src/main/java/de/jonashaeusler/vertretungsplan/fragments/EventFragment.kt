@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.format.DateUtils
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.EventAdapter
 import de.jonashaeusler.vertretungsplan.helpers.getPassword
@@ -114,11 +116,15 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     }
 
     private fun showSubstituteInfo(event: Event) {
-        val builder = AlertDialog.Builder(activity)
-        builder.setTitle(event.title)
-        builder.setMessage("${event.date}\n\n${event.text}")
-        builder.setPositiveButton(R.string.okay) { _, _ -> }
-        builder.create().show()
+        val dialog = AlertDialog.Builder(activity)
+                .setTitle(event.title)
+                .setMessage("${event.date}\n\n${event.text}")
+                .setPositiveButton(R.string.okay) { _, _ -> }
+                .create()
+        dialog.show()
+        
+        Linkify.addLinks(dialog.findViewById<TextView>(android.R.id.message),
+                Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES)
     }
 
     private fun showErrorView() {
