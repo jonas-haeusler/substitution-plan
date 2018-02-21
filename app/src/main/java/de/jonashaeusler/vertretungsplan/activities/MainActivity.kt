@@ -10,17 +10,15 @@ import android.view.MenuItem
 import android.view.View
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.ViewPagerAdapter
+import de.jonashaeusler.vertretungsplan.fragments.EventFragment
 import de.jonashaeusler.vertretungsplan.fragments.ExamFragment
 import de.jonashaeusler.vertretungsplan.fragments.HomeworkFragment
 import de.jonashaeusler.vertretungsplan.fragments.SubstitutionFragment
-import de.jonashaeusler.vertretungsplan.helpers.getClassShortcut
-import de.jonashaeusler.vertretungsplan.helpers.isTgi11
-import de.jonashaeusler.vertretungsplan.helpers.logout
-import de.jonashaeusler.vertretungsplan.helpers.setClassShortcut
+import de.jonashaeusler.vertretungsplan.helpers.*
 import de.jonashaeusler.vertretungsplan.interfaces.OnServerStatusResolved
 import de.jonashaeusler.vertretungsplan.network.ServerStatusTask
 import kotlinx.android.synthetic.main.activty_main.*
-import kotlinx.android.synthetic.main.dialog_change_class.view.*
+import kotlinx.android.synthetic.main.dialog_text_input.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -66,6 +64,7 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
             item.itemId == R.id.menu_server_status -> showServerStatusDialog()
             item.itemId == R.id.menu_change_class -> showClassChangerDialog()
             item.itemId == R.id.menu_licenses -> showLicenseDialog()
+            item.itemId == R.id.menu_filter -> showFilterDialog()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -77,15 +76,16 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
     }
 
     private fun showClassChangerDialog() {
-        val view = View.inflate(this, R.layout.dialog_change_class, null)
-        view.classShortcut.setText(getClassShortcut())
-        view.classShortcut.setSelection(view.classShortcut.length())
+        val view = View.inflate(this, R.layout.dialog_text_input, null)
+        view.text.setText(getClassShortcut())
+        view.text.setHint(R.string.hint_class_shortcut)
+        view.text.setSelection(view.text.length())
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.change_class_shortcut)
         builder.setView(view)
         builder.setPositiveButton(R.string.okay, { _, _ ->
-            setClassShortcut(view.classShortcut.text.toString())
+            setClassShortcut(view.text.text.toString())
             invalidateOptionsMenu()
             (adapter.getFragment(0) as? SubstitutionFragment)?.loadEvents()
 
@@ -126,5 +126,23 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
         serverStatusDialog?.setMessage(getString(R.string.loading))
         serverStatusDialog?.show()
         ServerStatusTask(this).execute()
+    }
+
+    private fun showFilterDialog() {
+        val view = View.inflate(this, R.layout.dialog_text_input, null)
+        view.text.setText(getFilter())
+        view.text.setHint(R.string.hint_regex_filter)
+        view.text.setSelection(view.text.length())
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.filter)
+        builder.setView(view)
+        builder.setPositiveButton(R.string.okay, { _, _ ->
+            setFilter(view.text.text.toString())
+            adapter.getAllFragments()
+                    .filterIsInstance<EventFragment>()
+                    .forEach { it.loadEvents() }
+        })
+        builder.create().show()
     }
 }

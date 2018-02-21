@@ -5,10 +5,12 @@
     <string name="tab_exams">Klausuren</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="filter">Filter</string>
     <string name="okay">OK</string>
     <string name="username">Benutzername</string>
     <string name="password">Passwort</string>
-    <string name="class_shortcut">Klassenkürzel (optional)</string>
+    <string name="hint_class_shortcut">Klassenkürzel (optional)</string>
+    <string name="hint_regex_filter">RegEx-Filter</string>
     <string name="substitution_title">%1$s in der %2$s. Stunde</string>
     <string name="substitution_text">%1$s in Raum %2$s anstatt %3$s in Raum %4$s</string>
     <string name="error_no_connection">Fehler beim Laden der Daten. Verbindung prüfen und erneut versuchen.</string>

@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity(), LoginTask.OnLogin {
     override fun onLoginSucceeded() {
         setUsername(username.text.toString())
         setPassword(password.text.toString())
-        setClassShortcut(classShortcut.text.toString())
+        setClassShortcut(text.text.toString())
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }

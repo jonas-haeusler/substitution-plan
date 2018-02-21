@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.EventAdapter
+import de.jonashaeusler.vertretungsplan.helpers.getFilter
 import de.jonashaeusler.vertretungsplan.helpers.getPassword
 import de.jonashaeusler.vertretungsplan.helpers.getUsername
 import de.jonashaeusler.vertretungsplan.interfaces.OnEventsFetched
@@ -49,6 +50,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
                     it.type == Event.EventType.TYPE_SUBSTITUTE
                             && it.getDateInMs() + DateUtils.DAY_IN_MILLIS < System.currentTimeMillis()
                 }
+                .filterNot { it.title.matches(Regex(context.getFilter())) }
                 .onEach { it.completed = completedEvents.contains(it.hashCode().toString()) })
         showRecyclerView()
     }

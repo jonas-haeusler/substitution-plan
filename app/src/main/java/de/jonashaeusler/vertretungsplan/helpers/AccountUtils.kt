@@ -10,6 +10,7 @@ import android.preference.PreferenceManager
 private val userUsername = "USER_USERNAME"
 private val userPassword = "USER_PASSWORD"
 private val userClassShortcut = "USER_CLASS_SHORTCUT"
+private val userFilter = "USER_FILTER"
 
 fun Context.isLoggedIn(): Boolean =
         getUsername().isNotBlank() && getPassword().isNotBlank()
@@ -38,6 +39,11 @@ fun Context.getClassShortcut(): String {
             .getString(userClassShortcut, "")
 }
 
+fun Context.getFilter(): String {
+    return PreferenceManager.getDefaultSharedPreferences(this)
+            .getString(userFilter, "")
+}
+
 fun Context.setUsername(username: String) {
     PreferenceManager.getDefaultSharedPreferences(this)
             .edit()
@@ -56,6 +62,13 @@ fun Context.setClassShortcut(classShort: String) {
     PreferenceManager.getDefaultSharedPreferences(this)
             .edit()
             .putString(userClassShortcut, classShort)
+            .apply()
+}
+
+fun Context.setFilter(filter: String) {
+    PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putString(userFilter, filter)
             .apply()
 }
 

@@ -91,11 +91,11 @@
             android:tint="@color/iconColorActive"/>
 
         <EditText
-            android:id="@+id/classShortcut"
+            android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:background="@null"
-            android:hint="@string/class_shortcut"
+            android:hint="@string/hint_class_shortcut"
             android:inputType="textPersonName"
             android:padding="16dp"
             android:paddingEnd="16dp"
