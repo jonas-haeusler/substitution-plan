@@ -41,15 +41,11 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         loadEvents()
         reload.setOnClickListener { loadEvents() }
         swipeRefreshLayout.setOnRefreshListener { loadEvents() }
-
     }
 
     override fun onEventFetchSuccess(events: List<Event>) {
         adapter.addAll(events
-                .filterNot {
-                    it.type == Event.EventType.TYPE_SUBSTITUTE
-                            && it.getDateInMs() + DateUtils.DAY_IN_MILLIS < System.currentTimeMillis()
-                }
+                .filter { it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis() }
                 .filterNot { it.title.matches(Regex(context.getFilter())) }
                 .onEach { it.completed = completedEvents.contains(it.hashCode().toString()) })
         showRecyclerView()
