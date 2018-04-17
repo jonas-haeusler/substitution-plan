@@ -52,8 +52,8 @@ class EventAdapter(val events: MutableList<Event>) :
             }
         }
 
+        holder.completed.isChecked = event.completed
         if (event.completed) {
-            holder.completed.isChecked = true
             holder.title.startStrikeThroughAnimation()
             holder.text.startStrikeThroughAnimation()
             holder.date.startStrikeThroughAnimation()
