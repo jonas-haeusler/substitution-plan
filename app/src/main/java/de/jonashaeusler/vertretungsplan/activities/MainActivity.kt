@@ -1,5 +1,6 @@
 package de.jonashaeusler.vertretungsplan.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
     private lateinit var adapter: ViewPagerAdapter
     private var serverStatusDialog: AlertDialog? = null
     private val dateFormat = SimpleDateFormat("dd. MMMM yyyy, HH:mm", Locale.getDefault())
+    private val updater = GitHubUpdater()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,8 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
         viewPager.offscreenPageLimit = 2
 
         tabLayout.setupWithViewPager(viewPager)
+
+        checkForUpdates()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -73,6 +77,24 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
         @Suppress("DEPRECATION")
         serverStatusDialog?.setMessage(Html.fromHtml(String.format(getString(R.string.server_status_message),
                 status[1], dateFormat.format(Date(status[0].toLong() * 1000)))))
+    }
+
+    private fun checkForUpdates() {
+        updater.isUpdateAvailable({ showDownloadUpdateDialog(it) })
+    }
+
+    private fun showDownloadUpdateDialog(release: GitHubUpdater.GitHubRelease) {
+        AlertDialog.Builder(this)
+                .setTitle(release.name)
+                .setMessage(getString(R.string.updater_new_version_available))
+                .setPositiveButton(getString(R.string.download), { _: DialogInterface, _: Int ->
+                    updater.downloadAndInstallUpdate(this, release)
+                })
+                .setNegativeButton(getString(R.string.ignore), { dialog: DialogInterface, _: Int ->
+                    dialog.dismiss()
+                })
+                .create()
+                .show()
     }
 
     private fun showClassChangerDialog() {

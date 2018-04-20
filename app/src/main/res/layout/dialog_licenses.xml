@@ -31,6 +31,40 @@
             android:layout_height="wrap_content"
             android:autoLink="web"
             android:padding="16dp"
+            android:text="@string/retrofit"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEEEEE"
+            android:padding="16dp"
+            android:text="@string/license_retrofit"
+            android:typeface="sans"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:padding="16dp"
+            android:text="@string/moshi"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEEEEE"
+            android:padding="16dp"
+            android:text="@string/license_moshi"
+            android:typeface="sans"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:padding="16dp"
             android:text="@string/http_request"
             android:textColor="@color/textColorPrimary"
             android:textSize="16sp"/>

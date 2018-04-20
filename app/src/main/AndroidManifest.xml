@@ -3,6 +3,7 @@
           package="de.jonashaeusler.vertretungsplan">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
         android:allowBackup="true"
