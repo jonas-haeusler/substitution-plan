@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,18 +15,12 @@ import de.jonashaeusler.vertretungsplan.fragments.ExamFragment
 import de.jonashaeusler.vertretungsplan.fragments.HomeworkFragment
 import de.jonashaeusler.vertretungsplan.fragments.SubstitutionFragment
 import de.jonashaeusler.vertretungsplan.helpers.*
-import de.jonashaeusler.vertretungsplan.interfaces.OnServerStatusResolved
-import de.jonashaeusler.vertretungsplan.network.ServerStatusTask
 import kotlinx.android.synthetic.main.activty_main.*
 import kotlinx.android.synthetic.main.dialog_text_input.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
-import java.text.SimpleDateFormat
-import java.util.*
 
-class MainActivity : AppCompatActivity(), OnServerStatusResolved {
+class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ViewPagerAdapter
-    private var serverStatusDialog: AlertDialog? = null
-    private val dateFormat = SimpleDateFormat("dd. MMMM yyyy, HH:mm", Locale.getDefault())
     private val updater = GitHubUpdater()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +47,6 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        menu.findItem(R.id.menu_server_status).isVisible = isTgi11()
         return true
     }
 
@@ -65,18 +57,11 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
                 finish()
                 startActivity(Intent(this, LoginActivity::class.java))
             }
-            item.itemId == R.id.menu_server_status -> showServerStatusDialog()
             item.itemId == R.id.menu_change_class -> showClassChangerDialog()
             item.itemId == R.id.menu_licenses -> showLicenseDialog()
             item.itemId == R.id.menu_filter -> showFilterDialog()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onServerStatusResolved(status: List<String>) {
-        @Suppress("DEPRECATION")
-        serverStatusDialog?.setMessage(Html.fromHtml(String.format(getString(R.string.server_status_message),
-                status[1], dateFormat.format(Date(status[0].toLong() * 1000)))))
     }
 
     private fun checkForUpdates() {
@@ -122,33 +107,21 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
                 .show()
     }
 
-    private fun showServerStatusDialog() {
-        if (serverStatusDialog == null) {
-            serverStatusDialog = AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.server_status))
-                    .create()
-        }
-
-        serverStatusDialog?.setMessage(getString(R.string.loading))
-        serverStatusDialog?.show()
-        ServerStatusTask(this).execute()
-    }
-
     private fun showFilterDialog() {
         val view = View.inflate(this, R.layout.dialog_text_input, null)
         view.text.setText(getFilter())
         view.text.setHint(R.string.hint_regex_filter)
         view.text.setSelection(view.text.length())
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.filter)
-        builder.setView(view)
-        builder.setPositiveButton(R.string.okay, { _, _ ->
-            setFilter(view.text.text.toString())
-            adapter.getAllFragments()
-                    .filterIsInstance<EventFragment>()
-                    .forEach { it.loadEvents() }
-        })
-        builder.create().show()
+        AlertDialog.Builder(this)
+                .setTitle(R.string.filter)
+                .setView(view)
+                .setPositiveButton(R.string.okay, { _, _ ->
+                    setFilter(view.text.text.toString())
+                    adapter.getAllFragments()
+                            .filterIsInstance<EventFragment>()
+                            .forEach { it.loadEvents() }
+                })
+                .create().show()
     }
 }

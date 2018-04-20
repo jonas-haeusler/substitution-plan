@@ -8,18 +8,13 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_server_status"
-        android:title="@string/server_status"
+        android:id="@+id/menu_filter"
+        android:title="@string/filter"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_licenses"
         android:title="@string/licenses"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_filter"
-        android:title="@string/filter"
         app:showAsAction="never"/>
 
     <item
