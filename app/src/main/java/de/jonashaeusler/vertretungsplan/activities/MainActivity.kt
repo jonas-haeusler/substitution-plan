@@ -86,23 +86,7 @@ class MainActivity : AppCompatActivity(), OnServerStatusResolved {
         builder.setView(view)
         builder.setPositiveButton(R.string.okay, { _, _ ->
             setClassShortcut(view.text.text.toString())
-            invalidateOptionsMenu()
-            (adapter.getFragment(0) as? SubstitutionFragment)?.loadEvents()
-
-            if (isTgi11()) {
-                if (adapter.size() == 1) {
-                    adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
-                    adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
-                    adapter.notifyDataSetChanged()
-                    tabLayout.visibility = View.VISIBLE
-                }
-            } else {
-                adapter.removeFragment(2)
-                adapter.removeFragment(1)
-                adapter.notifyDataSetChanged()
-                viewPager.currentItem = 0
-                tabLayout.visibility = View.GONE
-            }
+            recreate()
         })
         builder.create().show()
     }
