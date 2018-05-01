@@ -15,6 +15,7 @@ import de.jonashaeusler.vertretungsplan.fragments.ExamFragment
 import de.jonashaeusler.vertretungsplan.fragments.HomeworkFragment
 import de.jonashaeusler.vertretungsplan.fragments.SubstitutionFragment
 import de.jonashaeusler.vertretungsplan.helpers.*
+import de.jonashaeusler.vertretungsplan.models.GitHubRelease
 import kotlinx.android.synthetic.main.activty_main.*
 import kotlinx.android.synthetic.main.dialog_text_input.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
@@ -42,7 +43,9 @@ class MainActivity : AppCompatActivity() {
 
         tabLayout.setupWithViewPager(viewPager)
 
-        checkForUpdates()
+        if (savedInstanceState == null) {
+            checkForUpdates()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         updater.isUpdateAvailable({ showDownloadUpdateDialog(it) })
     }
 
-    private fun showDownloadUpdateDialog(release: GitHubUpdater.GitHubRelease) {
+    private fun showDownloadUpdateDialog(release: GitHubRelease) {
         AlertDialog.Builder(this)
                 .setTitle(release.name)
                 .setMessage(getString(R.string.updater_new_version_available))

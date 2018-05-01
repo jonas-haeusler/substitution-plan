@@ -1,6 +1,6 @@
 package de.jonashaeusler.vertretungsplan.network
 
-import de.jonashaeusler.vertretungsplan.helpers.GitHubUpdater
+import de.jonashaeusler.vertretungsplan.models.GitHubRelease
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -8,7 +8,7 @@ import retrofit2.http.GET
 
 interface GitHubService {
     @GET("/repositories/108325506/releases/latest")
-    fun getLatestVersionInfo(): Call<GitHubUpdater.GitHubRelease>
+    fun getLatestVersion(): Call<GitHubRelease>
 
     companion object {
         fun create(): GitHubService {
