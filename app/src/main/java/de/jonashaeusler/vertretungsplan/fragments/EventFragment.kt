@@ -32,7 +32,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_events, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         retainInstance = true
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
@@ -46,7 +46,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     override fun onEventFetchSuccess(events: List<Event>) {
         adapter.addAll(events
                 .filter { it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis() }
-                .filterNot { it.title.matches(Regex(context.getFilter())) }
+                .filterNot { it.title.matches(Regex(requireContext().getFilter())) }
                 .onEach { it.completed = completedEvents.contains(it.hashCode().toString()) })
         showRecyclerView()
     }
@@ -66,7 +66,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         showLoadingView()
         adapter.events.clear()
         eventTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                activity.getUsername(), activity.getPassword())
+                requireContext().getUsername(), requireContext().getPassword())
 
         onReload()
     }
@@ -76,8 +76,8 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
 
         recyclerView.adapter = adapter
         recyclerView.setEmptyView(emptyView)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.addItemDecoration(DividerItemDecoration(activity))
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.addItemDecoration(DividerItemDecoration(requireContext()))
         adapter.itemClickListener = { showSubstituteInfo(it) }
         adapter.checkedChangedListener = { event: Event, value: Boolean ->
             if (value) {
@@ -114,7 +114,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     }
 
     private fun showSubstituteInfo(event: Event) {
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(requireContext())
                 .setTitle(event.title)
                 .setMessage("${event.date}\n\n${event.text}")
                 .setPositiveButton(R.string.okay) { _, _ -> }

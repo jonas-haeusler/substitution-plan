@@ -12,11 +12,11 @@ import java.lang.ref.WeakReference
 class SubstitutionFragment : EventFragment(), OnInfoResolved {
     override var eventTask: AsyncTask<String, Long, Boolean>? = null
         get() {
-            return SubstitutionTask(WeakReference(activity), this)
+            return SubstitutionTask(WeakReference(requireContext()), this)
         }
 
     override fun onReload() {
-        if (activity.getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+        if (requireContext().getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))) {
             InfoTask(this).execute()
         } else {
             card.visibility = View.GONE

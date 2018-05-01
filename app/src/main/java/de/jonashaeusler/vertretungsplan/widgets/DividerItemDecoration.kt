@@ -8,7 +8,8 @@ import android.support.v7.widget.RecyclerView
 import de.jonashaeusler.vertretungsplan.R
 
 class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
-    private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.item_divider)
+    private val mDivider: Drawable = checkNotNull(
+            ContextCompat.getDrawable(context, R.drawable.item_divider))
     private var mLeftPadding = 0
     private var mRightPadding = 0
 
