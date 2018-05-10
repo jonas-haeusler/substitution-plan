@@ -1,6 +1,7 @@
 package de.jonashaeusler.vertretungsplan.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -11,14 +12,10 @@ import de.jonashaeusler.vertretungsplan.helpers.reverseStrikeThroughAnimation
 import de.jonashaeusler.vertretungsplan.helpers.startStrikeThroughAnimation
 import de.jonashaeusler.vertretungsplan.models.Event
 import kotlinx.android.synthetic.main.item_event.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class EventAdapter(val events: MutableList<Event>) :
         RecyclerView.Adapter<EventAdapter.ViewHolder>() {
-
-    private val dateFormat = SimpleDateFormat("dd. MMMM yyyy", Locale.getDefault())
 
     var itemClickListener: ((event: Event) -> Unit)? = null
     var checkedChangedListener: ((event: Event, value: Boolean) -> Unit)? = null
@@ -36,7 +33,8 @@ class EventAdapter(val events: MutableList<Event>) :
         if (event.getDateInMs() == -1L) {
             holder.date.setText(R.string.error_no_date_provided)
         } else {
-            holder.date.text = dateFormat.format(event.getDateInMs())
+            holder.date.text = DateUtils.getRelativeTimeSpanString(
+                    event.getDateInMs(), System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS)
         }
         holder.itemView.setOnClickListener { itemClickListener?.invoke(event) }
         holder.completed.setOnCheckedChangeListener { _: CompoundButton, value: Boolean ->
