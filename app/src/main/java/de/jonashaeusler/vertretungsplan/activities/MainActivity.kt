@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
-        if (isTgi11()) {
+        if (isClassSchoolApiEligible()) {
             adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
             adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
             tabLayout.visibility = View.VISIBLE

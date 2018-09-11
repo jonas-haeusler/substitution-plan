@@ -2,7 +2,7 @@ package de.jonashaeusler.vertretungsplan.fragments
 
 import android.os.AsyncTask
 import android.view.View
-import de.jonashaeusler.vertretungsplan.helpers.getClassShortcut
+import de.jonashaeusler.vertretungsplan.helpers.isClassSchoolApiEligible
 import de.jonashaeusler.vertretungsplan.interfaces.OnInfoResolved
 import de.jonashaeusler.vertretungsplan.network.InfoTask
 import de.jonashaeusler.vertretungsplan.network.SubstitutionTask
@@ -16,7 +16,7 @@ class SubstitutionFragment : EventFragment(), OnInfoResolved {
         }
 
     override fun onReload() {
-        if (requireContext().getClassShortcut().contains(Regex("t?g?(i11|11/?4)", RegexOption.IGNORE_CASE))) {
+        if (requireContext().isClassSchoolApiEligible()) {
             InfoTask(this).execute()
         } else {
             card.visibility = View.GONE

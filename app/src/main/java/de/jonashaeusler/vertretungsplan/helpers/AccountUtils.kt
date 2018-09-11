@@ -73,5 +73,5 @@ fun Context.setFilter(filter: String) {
 }
 
 // todo: don't hardcode the class shortcut
-fun Context.isTgi11(): Boolean =
+fun Context.isClassSchoolApiEligible(): Boolean =
         getClassShortcut().contains(Regex("t?g?(i12|12/?4)", RegexOption.IGNORE_CASE))
