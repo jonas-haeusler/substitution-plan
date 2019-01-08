@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.filter)
+                .setMessage(R.string.filter_description)
                 .setView(view)
                 .setPositiveButton(R.string.okay, { _, _ ->
                     setFilter(view.text.text.toString())
