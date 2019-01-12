@@ -111,21 +111,43 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFilterDialog() {
-        val view = View.inflate(this, R.layout.dialog_text_input, null)
-        view.text.setText(getFilter())
-        view.text.setHint(R.string.hint_regex_filter)
-        view.text.setSelection(view.text.length())
+        val filterCourses = resources.getStringArray(R.array.courses)
+        val filterCoursesRegex = resources.getStringArray(R.array.courses_regex)
+        val filterOld = getFilter().split("|").toTypedArray()
+        var filterNew = ""
+
+        val filterCheckedCourses = BooleanArray(filterCourses.size+1)
+        for (i in 0 until filterOld.size) {
+            for (x in 0 until filterCoursesRegex.size) {
+                if (filterOld[i] == filterCoursesRegex[x]) {
+                    filterCheckedCourses[x] = false
+                } else {
+                    filterCheckedCourses[x] = true
+                }
+            }
+        }
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.filter)
-                .setMessage(R.string.filter_description)
-                .setView(view)
-                .setPositiveButton(R.string.okay, { _, _ ->
-                    setFilter(view.text.text.toString())
+                .setMultiChoiceItems(filterCourses, filterCheckedCourses, {dialog,which,isChecked->
+                    filterCheckedCourses[which] = isChecked
+                })
+
+                .setPositiveButton("OK") { _, _ ->
+                    for (i in 0 until filterCoursesRegex.size) {
+                        if(filterCheckedCourses[i] == false){
+                            if(filterNew == ""){
+                                filterNew = filterCoursesRegex[i]
+                            } else {
+                                filterNew = filterNew+"|"+filterCoursesRegex[i]
+                            }
+                        }
+                    }
+                    setFilter(filterNew)
                     adapter.getAllFragments()
                             .filterIsInstance<EventFragment>()
                             .forEach { it.loadEvents() }
-                })
+                }
                 .create().show()
     }
 }
