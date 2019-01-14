@@ -68,19 +68,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForUpdates() {
-        updater.isUpdateAvailable({ showDownloadUpdateDialog(it) })
+        updater.isUpdateAvailable { showDownloadUpdateDialog(it) }
     }
 
     private fun showDownloadUpdateDialog(release: GitHubRelease) {
         AlertDialog.Builder(this)
                 .setTitle(release.name)
                 .setMessage(getString(R.string.updater_new_version_available))
-                .setPositiveButton(getString(R.string.download), { _: DialogInterface, _: Int ->
+                .setPositiveButton(getString(R.string.download)) { _: DialogInterface, _: Int ->
                     updater.downloadAndInstallUpdate(this, release)
-                })
-                .setNegativeButton(getString(R.string.ignore), { dialog: DialogInterface, _: Int ->
+                }
+                .setNegativeButton(getString(R.string.ignore)) { dialog: DialogInterface, _: Int ->
                     dialog.dismiss()
-                })
+                }
                 .create()
                 .show()
     }
@@ -94,10 +94,10 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.change_class_shortcut)
         builder.setView(view)
-        builder.setPositiveButton(R.string.okay, { _, _ ->
+        builder.setPositiveButton(R.string.okay) { _, _ ->
             setClassShortcut(view.text.text.toString())
             recreate()
-        })
+        }
         builder.create().show()
     }
 
@@ -111,42 +111,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFilterDialog() {
-        val filterCourses = resources.getStringArray(R.array.courses)
-        val filterCoursesRegex = resources.getStringArray(R.array.courses_regex)
+        val filterCoursesValues = resources.getStringArray(R.array.courses_values)
         val filterOld = getFilter()
-        var filterNew = ""
-
-        val filterCheckedCourses = BooleanArray(filterCourses.size+1)
-
-        for (i in 0 until filterCoursesRegex.size) {
-            if (filterOld.contains(filterCoursesRegex[i])) {
-                filterCheckedCourses[i] = false
-            } else {
-                filterCheckedCourses[i] = true
-            }
-        }
+        val filterCheckedCourses = filterCoursesValues.map {
+            !filterOld.contains(it)
+        }.toBooleanArray()
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.filter)
-                .setMultiChoiceItems(filterCourses, filterCheckedCourses, {dialog,which,isChecked->
+                .setMultiChoiceItems(R.array.courses, filterCheckedCourses) { _, which, isChecked ->
                     filterCheckedCourses[which] = isChecked
-                })
-
-                .setPositiveButton("OK") { _, _ ->
-                    for (i in 0 until filterCoursesRegex.size) {
-                        if(filterCheckedCourses[i] == false){
-                            if(filterNew == ""){
-                                filterNew = filterCoursesRegex[i]
-                            } else {
-                                filterNew = filterNew+"|"+filterCoursesRegex[i]
-                            }
-                        }
-                    }
-                    setFilter(filterNew)
-                    adapter.getAllFragments()
-                            .filterIsInstance<EventFragment>()
-                            .forEach { it.loadEvents() }
                 }
-                .create().show()
+                .setPositiveButton("OK") { _, _ ->
+                    val newFilter = filterCoursesValues.filterIndexed { index, _ ->
+                        !filterCheckedCourses[index]
+                    }.joinToString("|")
+                    setFilter(newFilter)
+                    reloadEvents()
+                }
+                .create()
+                .show()
+    }
+
+    private fun reloadEvents() {
+        adapter.getAllFragments()
+                .filterIsInstance<EventFragment>()
+                .forEach { it.loadEvents() }
     }
 }
