@@ -61,13 +61,13 @@
     <!-- todo: search solution with one array -->
     <!-- Array of all subjects for the creation of the regex filter -->
     <array name="courses_regex">
-        <item>Französisch</item>
-        <item>Spanisch</item>
-        <item>Italienisch</item>
+        <item>Französisch.*</item>
+        <item>Spanisch.*</item>
+        <item>Italienisch.*</item>
 
-        <item>Ethik</item>
-        <item>Katholisch</item>
-        <item>Evangelisch</item>
+        <item>Ethik|Religion/Et.*</item>
+        <item>Katholisch|Religion/Kat.*</item>
+        <item>Evangelisch|Religion/Ev.*</item>
 
         <item>Physik</item>
         <item>Chemie</item>
@@ -75,19 +75,19 @@
         <item>CT/A</item>
         <item>CT/B</item>
 
-        <item>ITÜ 1</item>
-        <item>ITÜ 2</item>
+        <item>ITÜ/1</item>
+        <item>ITÜ/2</item>
 
         <item>Seminarkurs/IT</item>
         <item>Seminarkurs/TDI</item>
 
-        <item>Sport 1</item>
-        <item>Sport 2</item>
-        <item>Sport 3</item>
-        <item>Sport 4</item>
-        <item>Sport 5</item>
-        <item>Sport 6</item>
-        <item>Sport 7</item>
-        <item>Sport 8</item>
+        <item>Sport/1|S 1|S1</item>
+        <item>Sport/2|S 2|S2</item>
+        <item>Sport/3|S 3|S3</item>
+        <item>Sport/4|S 4|S4</item>
+        <item>Sport/5|S 5|S5</item>
+        <item>Sport/6|S 6|S6</item>
+        <item>Sport/7|S 7|S7</item>
+        <item>Sport/8|S 8|S8</item>
     </array>
 </resources>
