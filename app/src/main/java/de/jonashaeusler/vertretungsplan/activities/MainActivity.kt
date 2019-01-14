@@ -113,17 +113,16 @@ class MainActivity : AppCompatActivity() {
     private fun showFilterDialog() {
         val filterCourses = resources.getStringArray(R.array.courses)
         val filterCoursesRegex = resources.getStringArray(R.array.courses_regex)
-        val filterOld = getFilter().split("|").toTypedArray()
+        val filterOld = getFilter()
         var filterNew = ""
 
         val filterCheckedCourses = BooleanArray(filterCourses.size+1)
-        for (i in 0 until filterOld.size) {
-            for (x in 0 until filterCoursesRegex.size) {
-                if (filterOld[i] == filterCoursesRegex[x]) {
-                    filterCheckedCourses[x] = false
-                } else {
-                    filterCheckedCourses[x] = true
-                }
+
+        for (i in 0 until filterCoursesRegex.size) {
+            if (filterOld.contains(filterCoursesRegex[i])) {
+                filterCheckedCourses[i] = false
+            } else {
+                filterCheckedCourses[i] = true
             }
         }
 
