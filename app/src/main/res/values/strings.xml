@@ -65,7 +65,7 @@
         <item>CT(\/|\ )B</item>
         <item>ITÜ(\/|\ )1</item>
         <item>ITÜ(\/|\ )2</item>
-        <item>Seminarkurs(\/|\ ?)IT</item>
+        <item>Seminarkurs(\/|\ ?)IT|Sem4</item>
         <item>Seminarkurs(\/|\ ?)TDI</item>
         <item>S(port)*(\/|\ ?)1</item>
         <item>S(port)*(\/|\ ?)2</item>
