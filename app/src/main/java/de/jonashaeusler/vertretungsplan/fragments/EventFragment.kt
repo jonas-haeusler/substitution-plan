@@ -35,7 +35,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         retainInstance = true
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         loadCompletedEvents()
         setupRecyclerView()
         loadEvents()
@@ -46,7 +46,13 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     override fun onEventFetchSuccess(events: List<Event>) {
         adapter.addAll(events
                 .filter { it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis() }
-                .filterNot { it.title.matches(requireContext().getIgnoredCoursesAsRegex()) }
+                .filterNot {
+                    if (it.type == Event.EventType.TYPE_SUBSTITUTE) {
+                        it.text.contains(requireContext().getIgnoredCoursesAsRegex())
+                    } else {
+                        it.title.matches(requireContext().getIgnoredCoursesAsRegex())
+                    }
+                }
                 .onEach { it.completed = completedEvents.contains(it.hashCode().toString())
                         && it.type == Event.EventType.TYPE_HOMEWORK })
         showRecyclerView()
