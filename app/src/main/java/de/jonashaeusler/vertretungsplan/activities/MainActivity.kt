@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showFilterDialog() {
         val filterCoursesValues = resources.getStringArray(R.array.courses_values)
-        val filterOld = getFilter()
+        val filterOld = getIgnoredCourses()
         val filterCheckedCourses = filterCoursesValues.map {
             !filterOld.contains(it)
         }.toBooleanArray()
@@ -125,8 +125,8 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton("OK") { _, _ ->
                     val newFilter = filterCoursesValues.filterIndexed { index, _ ->
                         !filterCheckedCourses[index]
-                    }.joinToString("|")
-                    setFilter(newFilter)
+                    }
+                    setIgnoredCourses(newFilter)
                     reloadEvents()
                 }
                 .create()

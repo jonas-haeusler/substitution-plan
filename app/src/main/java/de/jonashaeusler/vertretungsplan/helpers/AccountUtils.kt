@@ -10,7 +10,7 @@ import android.preference.PreferenceManager
 private val userUsername = "USER_USERNAME"
 private val userPassword = "USER_PASSWORD"
 private val userClassShortcut = "USER_CLASS_SHORTCUT"
-private val userFilter = "USER_FILTER"
+private val userIgnoredCourses = "USER_FILTER"
 
 fun Context.isLoggedIn(): Boolean =
         getUsername().isNotBlank() && getPassword().isNotBlank()
@@ -39,9 +39,14 @@ fun Context.getClassShortcut(): String {
             .getString(userClassShortcut, "")
 }
 
-fun Context.getFilter(): String {
+fun Context.getIgnoredCourses(): List<String> {
     return PreferenceManager.getDefaultSharedPreferences(this)
-            .getString(userFilter, "")
+            .getString(userIgnoredCourses, "")
+            .split(", ")
+}
+
+fun Context.getIgnoredCoursesAsRegex(): Regex {
+    return getIgnoredCourses().joinToString("|").toRegex(RegexOption.IGNORE_CASE)
 }
 
 fun Context.setUsername(username: String) {
@@ -65,10 +70,10 @@ fun Context.setClassShortcut(classShort: String) {
             .apply()
 }
 
-fun Context.setFilter(filter: String) {
+fun Context.setIgnoredCourses(courses: List<String>) {
     PreferenceManager.getDefaultSharedPreferences(this)
             .edit()
-            .putString(userFilter, filter)
+            .putString(userIgnoredCourses, courses.joinToString(", "))
             .apply()
 }
 
