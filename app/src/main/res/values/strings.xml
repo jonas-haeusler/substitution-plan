@@ -6,6 +6,7 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="filter">Filter</string>
+    <string name="filter_description">Um Kurse auszusortieren, geb diese bitte mit | getrennt ein:</string>
     <string name="okay">OK</string>
     <string name="username">Benutzername</string>
     <string name="password">Passwort</string>
@@ -25,4 +26,54 @@
     <string name="updater_new_version_available">Eine aktuellere Version der Vertretungsplan-App ist verfügbar!</string>
     <string name="download">Download</string>
     <string name="ignore">Ignorieren</string>
+
+    <array name="courses">
+        <item>Französisch</item>
+        <item>Spanisch</item>
+        <item>Italienisch</item>
+        <item>Ethik</item>
+        <item>Katholische Religion</item>
+        <item>Evangelische Religion</item>
+        <item>Physik</item>
+        <item>Chemie</item>
+        <item>CT/A (Donnerstag)</item>
+        <item>CT/B (Montag)</item>
+        <item>ITÜ 1 (Morgens)</item>
+        <item>ITÜ 2 (Mittags)</item>
+        <item>Seminarkurs/IT</item>
+        <item>Seminarkurs/TDI</item>
+        <item>Sport 1</item>
+        <item>Sport 2</item>
+        <item>Sport 3</item>
+        <item>Sport 4</item>
+        <item>Sport 5</item>
+        <item>Sport 6</item>
+        <item>Sport 7</item>
+        <item>Sport 8 (Handball)</item>
+    </array>
+
+    <array name="courses_values">
+        <item>Französisch</item>
+        <item>Spanisch</item>
+        <item>Italienisch</item>
+        <item>Ethik</item>
+        <item>Katholisch|Reli(\/|\ ?)Kath.*</item>
+        <item>Evangelisch|Reli(\/|\ ?)Ev.*</item>
+        <item>Physik</item>
+        <item>Chemie</item>
+        <item>CT(\/|\ )A</item>
+        <item>CT(\/|\ )B</item>
+        <item>ITÜ(\/|\ )1</item>
+        <item>ITÜ(\/|\ )2</item>
+        <item>Seminarkurs(\/|\ ?)IT|Sem4</item>
+        <item>Seminarkurs(\/|\ ?)TDI</item>
+        <item>S(port)*(\/|\ ?)1</item>
+        <item>S(port)*(\/|\ ?)2</item>
+        <item>S(port)*(\/|\ ?)3</item>
+        <item>S(port)*(\/|\ ?)4</item>
+        <item>S(port)*(\/|\ ?)5</item>
+        <item>S(port)*(\/|\ ?)6</item>
+        <item>S(port)*(\/|\ ?)7</item>
+        <item>S(port)*(\/|\ ?)8</item>
+    </array>
 </resources>

@@ -68,19 +68,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForUpdates() {
-        updater.isUpdateAvailable({ showDownloadUpdateDialog(it) })
+        updater.isUpdateAvailable { showDownloadUpdateDialog(it) }
     }
 
     private fun showDownloadUpdateDialog(release: GitHubRelease) {
         AlertDialog.Builder(this)
                 .setTitle(release.name)
                 .setMessage(getString(R.string.updater_new_version_available))
-                .setPositiveButton(getString(R.string.download), { _: DialogInterface, _: Int ->
+                .setPositiveButton(getString(R.string.download)) { _: DialogInterface, _: Int ->
                     updater.downloadAndInstallUpdate(this, release)
-                })
-                .setNegativeButton(getString(R.string.ignore), { dialog: DialogInterface, _: Int ->
+                }
+                .setNegativeButton(getString(R.string.ignore)) { dialog: DialogInterface, _: Int ->
                     dialog.dismiss()
-                })
+                }
                 .create()
                 .show()
     }
@@ -94,10 +94,10 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.change_class_shortcut)
         builder.setView(view)
-        builder.setPositiveButton(R.string.okay, { _, _ ->
+        builder.setPositiveButton(R.string.okay) { _, _ ->
             setClassShortcut(view.text.text.toString())
             recreate()
-        })
+        }
         builder.create().show()
     }
 
@@ -111,20 +111,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFilterDialog() {
-        val view = View.inflate(this, R.layout.dialog_text_input, null)
-        view.text.setText(getFilter())
-        view.text.setHint(R.string.hint_regex_filter)
-        view.text.setSelection(view.text.length())
+        val filterCoursesValues = resources.getStringArray(R.array.courses_values)
+        val filterOld = getIgnoredCourses()
+        val filterCheckedCourses = filterCoursesValues.map {
+            !filterOld.contains(it)
+        }.toBooleanArray()
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.filter)
-                .setView(view)
-                .setPositiveButton(R.string.okay, { _, _ ->
-                    setFilter(view.text.text.toString())
-                    adapter.getAllFragments()
-                            .filterIsInstance<EventFragment>()
-                            .forEach { it.loadEvents() }
-                })
-                .create().show()
+                .setMultiChoiceItems(R.array.courses, filterCheckedCourses) { _, which, isChecked ->
+                    filterCheckedCourses[which] = isChecked
+                }
+                .setPositiveButton("OK") { _, _ ->
+                    val newFilter = filterCoursesValues.filterIndexed { index, _ ->
+                        !filterCheckedCourses[index]
+                    }
+                    setIgnoredCourses(newFilter)
+                    reloadEvents()
+                }
+                .create()
+                .show()
+    }
+
+    private fun reloadEvents() {
+        adapter.getAllFragments()
+                .filterIsInstance<EventFragment>()
+                .forEach { it.loadEvents() }
     }
 }
