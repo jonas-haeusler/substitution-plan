@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import de.jonashaeusler.vertretungsplan.BuildConfig
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.ViewPagerAdapter
 import de.jonashaeusler.vertretungsplan.fragments.EventFragment
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         tabLayout.setupWithViewPager(viewPager)
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && !BuildConfig.DEBUG) {
             checkForUpdates()
         }
     }
