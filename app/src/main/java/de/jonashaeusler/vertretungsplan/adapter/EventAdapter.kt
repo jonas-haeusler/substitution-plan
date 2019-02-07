@@ -1,12 +1,12 @@
 package de.jonashaeusler.vertretungsplan.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.helpers.reverseStrikeThroughAnimation
 import de.jonashaeusler.vertretungsplan.helpers.startStrikeThroughAnimation
@@ -14,8 +14,7 @@ import de.jonashaeusler.vertretungsplan.models.Event
 import kotlinx.android.synthetic.main.item_event.view.*
 
 
-class EventAdapter(val events: MutableList<Event>) :
-        RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter(val events: MutableList<Event>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     var itemClickListener: ((event: Event) -> Unit)? = null
     var checkedChangedListener: ((event: Event, value: Boolean) -> Unit)? = null

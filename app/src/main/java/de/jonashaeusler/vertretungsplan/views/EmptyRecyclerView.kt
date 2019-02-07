@@ -1,9 +1,9 @@
 package de.jonashaeusler.vertretungsplan.views
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 
 /**
@@ -71,16 +71,17 @@ class EmptyRecyclerView : RecyclerView {
     }
 
     private fun checkEmptyState() {
-        if (emptyView == null || adapter == null) {
+        if (emptyView == null) {
             return
         }
-
-        if (adapter.itemCount > 0) {
-            emptyView?.visibility = View.GONE
-            this.visibility = View.VISIBLE
-        } else {
-            emptyView?.visibility = View.VISIBLE
-            this.visibility = View.GONE
+        adapter?.let {
+            if (it.itemCount > 0) {
+                emptyView?.visibility = View.GONE
+                this.visibility = View.VISIBLE
+            } else {
+                emptyView?.visibility = View.VISIBLE
+                this.visibility = View.GONE
+            }
         }
     }
 }

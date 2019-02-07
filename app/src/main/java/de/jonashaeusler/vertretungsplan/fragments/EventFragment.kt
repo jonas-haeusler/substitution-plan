@@ -4,15 +4,15 @@ import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
 import android.text.format.DateUtils
 import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.EventAdapter
 import de.jonashaeusler.vertretungsplan.helpers.getIgnoredCoursesAsRegex
@@ -97,7 +97,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
 
     private fun loadCompletedEvents() {
         completedEvents = sharedPreferences
-                .getString("events_completed", "")
+                .getString("events_completed", "")!!
                 .split(", ")
                 .toMutableSet()
     }

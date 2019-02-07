@@ -3,8 +3,8 @@ package de.jonashaeusler.vertretungsplan.widgets
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import de.jonashaeusler.vertretungsplan.R
 
 class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
@@ -13,7 +13,7 @@ class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private var mLeftPadding = 0
     private var mRightPadding = 0
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val left = parent.paddingLeft + mLeftPadding
         val right = parent.width - parent.paddingRight + mRightPadding
 
@@ -29,10 +29,5 @@ class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
             mDivider.setBounds(left, top, right, bottom)
             mDivider.draw(c)
         }
-    }
-
-    fun setPadding(left: Int, right: Int) {
-        mLeftPadding = left
-        mRightPadding = right
     }
 }

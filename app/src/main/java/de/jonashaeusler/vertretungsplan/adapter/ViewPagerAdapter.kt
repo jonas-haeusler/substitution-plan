@@ -1,8 +1,8 @@
 package de.jonashaeusler.vertretungsplan.adapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 
 /**
  * Adapter class to be used with a ViewPager.
@@ -45,7 +45,7 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     /**
      * Remove a fragment previously added.
      *
-     * @param fragment The fragment to remove.
+     * @param position The fragment to remove.
      */
     fun removeFragment(position: Int) {
         if (mFragmentList.size > position) {

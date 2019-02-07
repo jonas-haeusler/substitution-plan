@@ -2,8 +2,8 @@ package de.jonashaeusler.vertretungsplan.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.helpers.isLoggedIn
 import de.jonashaeusler.vertretungsplan.helpers.setClassShortcut
