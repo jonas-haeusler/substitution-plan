@@ -5,7 +5,7 @@
     <string name="tab_exams">Klausuren</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
-    <string name="filter">Filter</string>
+    <string name="courses">Kurse</string>
     <string name="filter_description">Um Kurse auszusortieren, geb diese bitte mit | getrennt ein:</string>
     <string name="okay">OK</string>
     <string name="username">Benutzername</string>

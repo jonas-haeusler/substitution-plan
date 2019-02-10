@@ -8,8 +8,8 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_filter"
-        android:title="@string/filter"
+        android:id="@+id/menu_courses"
+        android:title="@string/courses"
         app:showAsAction="never"/>
 
     <item

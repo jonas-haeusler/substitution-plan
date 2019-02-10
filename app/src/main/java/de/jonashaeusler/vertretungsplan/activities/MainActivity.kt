@@ -1,5 +1,6 @@
 package de.jonashaeusler.vertretungsplan.activities
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +21,8 @@ import de.jonashaeusler.vertretungsplan.models.GitHubRelease
 import kotlinx.android.synthetic.main.activty_main.*
 import kotlinx.android.synthetic.main.dialog_text_input.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+
+private const val REQUEST_CODE_COURSE_ACTIVITY = 7593
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ViewPagerAdapter
@@ -63,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
             item.itemId == R.id.menu_change_class -> showClassChangerDialog()
             item.itemId == R.id.menu_licenses -> showLicenseDialog()
-            item.itemId == R.id.menu_filter -> showFilterDialog()
+            item.itemId == R.id.menu_courses -> startCourseManagerActivity()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -111,27 +114,17 @@ class MainActivity : AppCompatActivity() {
                 .show()
     }
 
-    private fun showFilterDialog() {
-        val filterCoursesValues = resources.getStringArray(R.array.courses_values)
-        val filterOld = getIgnoredCourses()
-        val filterCheckedCourses = filterCoursesValues.map {
-            !filterOld.contains(it)
-        }.toBooleanArray()
+    private fun startCourseManagerActivity() {
+        startActivityForResult(
+                Intent(this, CourseManagerActivity::class.java),
+                REQUEST_CODE_COURSE_ACTIVITY)
+    }
 
-        AlertDialog.Builder(this)
-                .setTitle(R.string.filter)
-                .setMultiChoiceItems(R.array.courses, filterCheckedCourses) { _, which, isChecked ->
-                    filterCheckedCourses[which] = isChecked
-                }
-                .setPositiveButton("OK") { _, _ ->
-                    val newFilter = filterCoursesValues.filterIndexed { index, _ ->
-                        !filterCheckedCourses[index]
-                    }
-                    setIgnoredCourses(newFilter)
-                    reloadEvents()
-                }
-                .create()
-                .show()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_COURSE_ACTIVITY && resultCode == Activity.RESULT_OK) {
+            reloadEvents()
+        }
     }
 
     private fun reloadEvents() {

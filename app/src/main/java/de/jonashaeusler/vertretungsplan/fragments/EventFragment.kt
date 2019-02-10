@@ -44,17 +44,20 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
     }
 
     override fun onEventFetchSuccess(events: List<Event>) {
+        val ignoredCourses = requireContext().getIgnoredCoursesAsRegex()
         adapter.addAll(events
-                .filter { it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis() }
-                .filterNot {
-                    if (it.type == Event.EventType.TYPE_SUBSTITUTE) {
-                        it.text.contains(requireContext().getIgnoredCoursesAsRegex())
-                    } else {
-                        it.title.matches(requireContext().getIgnoredCoursesAsRegex())
-                    }
-                }
-                .onEach { it.completed = completedEvents.contains(it.hashCode().toString())
-                        && it.type == Event.EventType.TYPE_HOMEWORK })
+                .filter {
+                    it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis()
+                }.filterNot {
+                    it.type != Event.EventType.TYPE_SUBSTITUTE && it.title.matches(ignoredCourses)
+                }.filterNot {
+                    it.type == Event.EventType.TYPE_SUBSTITUTE && it.text.contains(ignoredCourses)
+                            && ignoredCourses.toString().isNotEmpty()
+                }.onEach {
+                    it.completed = completedEvents.contains(it.hashCode().toString())
+                            && it.type == Event.EventType.TYPE_HOMEWORK
+                })
+
         showRecyclerView()
     }
 
@@ -127,7 +130,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
                 .setPositiveButton(R.string.okay) { _, _ -> }
                 .create()
         dialog.show()
-        
+
         Linkify.addLinks(dialog.findViewById<TextView>(android.R.id.message),
                 Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES)
     }

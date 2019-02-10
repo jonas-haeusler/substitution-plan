@@ -10,7 +10,7 @@ import android.preference.PreferenceManager
 private val userUsername = "USER_USERNAME"
 private val userPassword = "USER_PASSWORD"
 private val userClassShortcut = "USER_CLASS_SHORTCUT"
-private val userIgnoredCourses = "USER_FILTER"
+private val userIgnoredCourses = "USER_IGNORED_COURSES"
 
 fun Context.isLoggedIn(): Boolean =
         getUsername().isNotBlank() && getPassword().isNotBlank()
