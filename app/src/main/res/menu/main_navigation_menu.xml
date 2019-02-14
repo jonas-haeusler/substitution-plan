@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_substitutes"
+        android:icon="@drawable/ic_substitute"
+        android:title="@string/tab_substitutes"/>
+
+    <item
+        android:id="@+id/action_homework"
+        android:icon="@drawable/ic_homework"
+        android:title="@string/tab_homework"/>
+
+    <item
+        android:id="@+id/action_exams"
+        android:icon="@drawable/ic_exam"
+        android:title="@string/tab_exams"/>
+</menu>

@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import de.jonashaeusler.vertretungsplan.BuildConfig
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.ViewPagerAdapter
@@ -33,19 +34,51 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activty_main)
         setSupportActionBar(toolbar)
 
+
         adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
         if (isClassSchoolApiEligible()) {
             adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
             adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
-            tabLayout.visibility = View.VISIBLE
+            navigation.visibility = View.VISIBLE
         } else {
-            tabLayout.visibility = View.GONE
+            navigation.visibility = View.GONE
         }
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 2
 
-        tabLayout.setupWithViewPager(viewPager)
+        navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_substitutes -> {
+                    viewPager.currentItem = 0
+                    true
+                }
+                R.id.action_homework -> {
+                    viewPager.currentItem = 1
+                    true
+                }
+                R.id.action_exams -> {
+                    viewPager.currentItem = 2
+                    true
+                }
+                else -> false
+            }
+        }
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageSelected(position: Int) {
+                navigation.selectedItemId = when (position) {
+                    1 -> R.id.action_homework
+                    2 -> R.id.action_exams
+                    else -> R.id.action_substitutes
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+        })
 
         if (savedInstanceState == null && !BuildConfig.DEBUG) {
             checkForUpdates()
