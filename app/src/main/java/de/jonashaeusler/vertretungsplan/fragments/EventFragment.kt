@@ -1,7 +1,6 @@
 package de.jonashaeusler.vertretungsplan.fragments
 
 import android.content.SharedPreferences
-import android.os.AsyncTask
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.format.DateUtils
@@ -17,17 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.EventAdapter
 import de.jonashaeusler.vertretungsplan.helpers.getIgnoredCoursesAsRegex
-import de.jonashaeusler.vertretungsplan.helpers.getPassword
-import de.jonashaeusler.vertretungsplan.helpers.getUsername
-import de.jonashaeusler.vertretungsplan.interfaces.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.models.Event
 import kotlinx.android.synthetic.main.fragment_events.*
 
-abstract class EventFragment : Fragment(), OnEventsFetched {
-    abstract var eventTask: AsyncTask<String, Long, Boolean>?
+abstract class EventFragment : Fragment() {
+
+    /* abstract var eventTask: AsyncTask<String, Long, Boolean>? */
+
     private lateinit var adapter: EventAdapter
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var completedEvents: MutableSet<String>
+
+    abstract val useInfoCard: Boolean
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_events, container, false)
@@ -38,13 +38,17 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         loadCompletedEvents()
         setupRecyclerView()
-        loadEvents()
-        reload.setOnClickListener { loadEvents() }
-        swipeRefreshLayout.setOnRefreshListener { loadEvents() }
+        reload.setOnClickListener { load() }
+        load()
+        swipeRefreshLayout.setOnRefreshListener { load() }
+        card.visibility = if (useInfoCard) View.VISIBLE else View.GONE
     }
 
-    override fun onEventFetchSuccess(events: List<Event>) {
+    abstract fun loadEvents()
+
+    fun postEvents(events: List<Event>) {
         val ignoredCourses = requireContext().getIgnoredCoursesAsRegex()
+        adapter.events.clear()
         adapter.addAll(events
                 .filter {
                     it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis()
@@ -61,24 +65,10 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         showRecyclerView()
     }
 
-    override fun onEventFetchError() {
-        showErrorView()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        eventTask?.cancel(true)
-    }
-
-    abstract fun onReload()
-
-    fun loadEvents() {
-        showLoadingView()
-        adapter.events.clear()
-        eventTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                requireContext().getUsername(), requireContext().getPassword())
-
-        onReload()
+    fun showErrorView() {
+        swipeRefreshLayout.isRefreshing = false
+        containerConnectionError.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
     }
 
     private fun setupRecyclerView() {
@@ -88,7 +78,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         recyclerView.setEmptyView(emptyView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        adapter.itemClickListener = { showSubstituteInfo(it) }
+        adapter.itemClickListener = { showEventInfo(it) }
         adapter.checkedChangedListener = { event: Event, value: Boolean ->
             if (value) {
                 addCompletedEvent(event)
@@ -96,6 +86,24 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
                 removeCompletedEvent(event)
             }
         }
+    }
+
+    private fun load() {
+        showLoadingView()
+        loadEvents()
+    }
+
+    private fun showRecyclerView() {
+        swipeRefreshLayout.isRefreshing = false
+        recyclerView.visibility = View.VISIBLE
+        containerConnectionError.visibility = View.GONE
+    }
+
+    private fun showLoadingView() {
+        swipeRefreshLayout.isRefreshing = true
+        recyclerView.visibility = View.GONE
+        containerConnectionError.visibility = View.GONE
+        emptyView.visibility = View.GONE
     }
 
     private fun loadCompletedEvents() {
@@ -123,7 +131,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
                 .apply()
     }
 
-    private fun showSubstituteInfo(event: Event) {
+    private fun showEventInfo(event: Event) {
         val dialog = AlertDialog.Builder(requireContext())
                 .setTitle(event.title)
                 .setMessage("${event.date}\n\n${event.text}")
@@ -131,26 +139,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
                 .create()
         dialog.show()
 
-        Linkify.addLinks(dialog.findViewById<TextView>(android.R.id.message),
+        Linkify.addLinks(dialog.findViewById<TextView>(android.R.id.message)!!,
                 Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES)
-    }
-
-    private fun showErrorView() {
-        swipeRefreshLayout.isRefreshing = false
-        containerConnectionError.visibility = View.VISIBLE
-        recyclerView.visibility = View.GONE
-    }
-
-    private fun showRecyclerView() {
-        swipeRefreshLayout.isRefreshing = false
-        recyclerView.visibility = View.VISIBLE
-        containerConnectionError.visibility = View.GONE
-    }
-
-    private fun showLoadingView() {
-        swipeRefreshLayout.isRefreshing = true
-        recyclerView.visibility = View.GONE
-        containerConnectionError.visibility = View.GONE
-        emptyView.visibility = View.GONE
     }
 }

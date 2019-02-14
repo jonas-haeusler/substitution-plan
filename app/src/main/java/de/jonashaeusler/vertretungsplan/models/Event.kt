@@ -14,7 +14,8 @@ data class Event(val date: String, val title: String, val text: String,
     enum class EventType {
         TYPE_HOMEWORK,
         TYPE_SUBSTITUTE,
-        TYPE_EXAM
+        TYPE_EXAM,
+        TYPE_CAFETERIA_MENU
     }
 
     override fun hashCode() = "$date$title$text$".hashCode()

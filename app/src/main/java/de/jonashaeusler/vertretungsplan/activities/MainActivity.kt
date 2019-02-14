@@ -13,10 +13,7 @@ import androidx.viewpager.widget.ViewPager
 import de.jonashaeusler.vertretungsplan.BuildConfig
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.ViewPagerAdapter
-import de.jonashaeusler.vertretungsplan.fragments.EventFragment
-import de.jonashaeusler.vertretungsplan.fragments.ExamFragment
-import de.jonashaeusler.vertretungsplan.fragments.HomeworkFragment
-import de.jonashaeusler.vertretungsplan.fragments.SubstitutionFragment
+import de.jonashaeusler.vertretungsplan.fragments.*
 import de.jonashaeusler.vertretungsplan.helpers.*
 import de.jonashaeusler.vertretungsplan.models.GitHubRelease
 import kotlinx.android.synthetic.main.activty_main.*
@@ -40,12 +37,13 @@ class MainActivity : AppCompatActivity() {
         if (isClassSchoolApiEligible()) {
             adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
             adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
+            adapter.addFragment(CafeteriaFragment(), getString(R.string.tab_cafeteria))
             navigation.visibility = View.VISIBLE
         } else {
             navigation.visibility = View.GONE
         }
         viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 2
+        viewPager.offscreenPageLimit = 3
 
         navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -61,6 +59,10 @@ class MainActivity : AppCompatActivity() {
                     viewPager.currentItem = 2
                     true
                 }
+                R.id.action_cafeteria -> {
+                    viewPager.currentItem = 3
+                    true
+                }
                 else -> false
             }
         }
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 navigation.selectedItemId = when (position) {
                     1 -> R.id.action_homework
                     2 -> R.id.action_exams
+                    3 -> R.id.action_cafeteria
                     else -> R.id.action_substitutes
                 }
             }

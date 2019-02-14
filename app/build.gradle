@@ -42,4 +42,5 @@ dependencies {
 
     implementation 'org.jsoup:jsoup:1.10.3'
     implementation 'com.github.kevinsawicki:http-request:http-request-6.0'
+    implementation 'com.github.slashrootv200:retrofit-html-converter:0.0.2'
 }

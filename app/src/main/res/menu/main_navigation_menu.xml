@@ -14,4 +14,9 @@
         android:id="@+id/action_exams"
         android:icon="@drawable/ic_exam"
         android:title="@string/tab_exams"/>
+
+    <item
+        android:id="@+id/action_cafeteria"
+        android:icon="@drawable/ic_cafeteria"
+        android:title="@string/tab_cafeteria"/>
 </menu>

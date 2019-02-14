@@ -3,6 +3,7 @@
     <string name="tab_substitutes">Vertretungen</string>
     <string name="tab_homework">Hausaufgaben</string>
     <string name="tab_exams">Klausuren</string>
+    <string name="tab_cafeteria">Cafeteria</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="courses">Kurse</string>
