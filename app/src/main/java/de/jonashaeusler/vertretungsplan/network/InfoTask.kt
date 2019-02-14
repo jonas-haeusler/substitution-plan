@@ -7,7 +7,7 @@ import de.jonashaeusler.vertretungsplan.interfaces.OnInfoResolved
 class InfoTask(private val callback: OnInfoResolved? = null) : AsyncTask<String, Long, String>() {
     override fun doInBackground(vararg p0: String?): String {
         return try {
-            HttpRequest.get("https://schulbot.000webhostapp.com/public/info.php").body()
+            HttpRequest.get("http://vertretungsbot.ddnss.de/api/infos.php").body()
         } catch (e: HttpRequest.HttpRequestException) {
             e.printStackTrace()
             ""

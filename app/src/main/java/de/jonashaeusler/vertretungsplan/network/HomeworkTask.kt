@@ -15,7 +15,7 @@ class HomeworkTask(private val callback: OnEventsFetched? = null) :
     override fun doInBackground(vararg p0: String?): Boolean {
         return try {
             events.addAll((
-                    HttpRequest.get("https://schulbot.000webhostapp.com/public/ha.php").body())
+                    HttpRequest.get("http://vertretungsbot.ddnss.de/api/ha.php").body())
                     .split("--..--..--")
                     .map { it.split("--..--") }
                     .filter { it.size >= 2 }
