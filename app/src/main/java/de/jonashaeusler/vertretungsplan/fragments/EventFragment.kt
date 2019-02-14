@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.adapter.EventAdapter
@@ -20,7 +21,6 @@ import de.jonashaeusler.vertretungsplan.helpers.getPassword
 import de.jonashaeusler.vertretungsplan.helpers.getUsername
 import de.jonashaeusler.vertretungsplan.interfaces.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.models.Event
-import de.jonashaeusler.vertretungsplan.widgets.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_events.*
 
 abstract class EventFragment : Fragment(), OnEventsFetched {
@@ -87,7 +87,7 @@ abstract class EventFragment : Fragment(), OnEventsFetched {
         recyclerView.adapter = adapter
         recyclerView.setEmptyView(emptyView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.addItemDecoration(DividerItemDecoration(requireContext()))
+        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         adapter.itemClickListener = { showSubstituteInfo(it) }
         adapter.checkedChangedListener = { event: Event, value: Boolean ->
             if (value) {

@@ -21,7 +21,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EEEEEE"
             android:padding="16dp"
             android:text="@string/license_jsoup"
             android:typeface="sans"/>
@@ -38,7 +37,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EEEEEE"
             android:padding="16dp"
             android:text="@string/license_retrofit"
             android:typeface="sans"/>
@@ -55,7 +53,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EEEEEE"
             android:padding="16dp"
             android:text="@string/license_moshi"
             android:typeface="sans"/>
@@ -72,7 +69,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EEEEEE"
             android:padding="16dp"
             android:text="@string/license_http_request"
             android:typeface="sans"/>
