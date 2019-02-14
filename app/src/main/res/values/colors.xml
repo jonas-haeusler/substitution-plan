@@ -11,5 +11,6 @@
     <color name="rippleColorDark">#33FFFFFF</color>
 
     <color name="background">@color/colorPrimaryDark</color>
+    <color name="cardBackgroundColor">#212121</color>
     <color name="iconColor">#8AFFFFFF</color>
 </resources>

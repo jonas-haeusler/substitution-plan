@@ -14,12 +14,17 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat</item>
-        <item name="alertDialogTheme">@style/Theme.AlertDialog.Dark</item>
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialog.Dark</item>
+        <item name="cardViewStyle">@style/AppTheme.CardView</item>
     </style>
 
-    <style name="Theme.AlertDialog.Dark" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="AppTheme.AlertDialog.Dark" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:background">@color/background</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.CardView" parent="CardView">
+        <item name="cardBackgroundColor">@color/cardBackgroundColor</item>
     </style>
 
 </resources>
