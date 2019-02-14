@@ -6,7 +6,6 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="courses">Kurse</string>
-    <string name="filter_description">Um Kurse auszusortieren, geb diese bitte mit | getrennt ein:</string>
     <string name="okay">OK</string>
     <string name="username">Benutzername</string>
     <string name="password">Passwort</string>
@@ -36,35 +35,37 @@
         <item>Evangelische Religion</item>
         <item>Physik</item>
         <item>Chemie</item>
-        <item>CT/A (Donnerstag)</item>
-        <item>CT/B (Montag)</item>
-        <item>ITÜ 1 (Morgens)</item>
-        <item>ITÜ 2 (Mittags)</item>
+        <item>CT/7 (Donnerstag)</item>
+        <item>CT/8 (Montag)</item>
+        <item>ITÜ A (Morgens)</item>
+        <item>ITÜ B (Mittags)</item>
+        <item>GlobalStudies</item>
         <item>Seminarkurs/IT</item>
         <item>Seminarkurs/TDI</item>
-        <item>Sport 1</item>
-        <item>Sport 2</item>
-        <item>Sport 3</item>
-        <item>Sport 4</item>
-        <item>Sport 5</item>
-        <item>Sport 6</item>
-        <item>Sport 7</item>
-        <item>Sport 8 (Handball)</item>
+        <item>Sport 1 (Gymnastik &amp; Tanz, Montag)</item>
+        <item>Sport 2 (Geräteturnen &amp; Volleyball, Montag)</item>
+        <item>Sport 3 (Leichtathletik &amp; Volleyball, Montag)</item>
+        <item>Sport 4 (Leichtathletik &amp; Fußball, Montag)</item>
+        <item>Sport 5 (Geräteturnen, Mittwoch)</item>
+        <item>Sport 6 (Leichtathletik &amp; Basketball, Mittwoch)</item>
+        <item>Sport 7 (Gymnastik &amp; Tanz, Mittwoch)</item>
+        <item>Sport 8 (Leichtathletik &amp; Handball, Mittwoch)</item>
     </array>
 
     <array name="courses_values">
-        <item>Französisch</item>
-        <item>Spanisch</item>
-        <item>Italienisch</item>
-        <item>Ethik</item>
-        <item>Katholisch|Reli(\/|\ ?)Kath.*</item>
-        <item>Evangelisch|Reli(\/|\ ?)Ev.*</item>
-        <item>Physik</item>
-        <item>Chemie</item>
-        <item>CT(\/|\ )A</item>
-        <item>CT(\/|\ )B</item>
-        <item>ITÜ(\/|\ )1</item>
-        <item>ITÜ(\/|\ )2</item>
+        <item>Französisch|F\/B.*</item>
+        <item>Spanisch|SP\/B.*</item>
+        <item>Italienisch|I\/B.*</item>
+        <item>Ethik|ETH.*</item>
+        <item>Katholisch|Reli(\/|\ ?)Kath.*|REL.*</item>
+        <item>Evangelisch|Reli(\/|\ ?)Ev.*|EVR.*</item>
+        <item>Physik|PH.*</item>
+        <item>Chemie|CH.*</item>
+        <item>CT(\/|\ ?)7</item>
+        <item>CT(\/|\ ?)8</item>
+        <item>ITÜ(\/|\ ?)A</item>
+        <item>ITÜ(\/|\ ?)B</item>
+        <item>GlobalStudies|GS</item>
         <item>Seminarkurs(\/|\ ?)IT|Sem4</item>
         <item>Seminarkurs(\/|\ ?)TDI</item>
         <item>S(port)*(\/|\ ?)1</item>
