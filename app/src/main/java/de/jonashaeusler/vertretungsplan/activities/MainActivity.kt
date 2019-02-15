@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
@@ -25,12 +26,13 @@ private const val REQUEST_CODE_COURSE_ACTIVITY = 7593
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ViewPagerAdapter
     private val updater = GitHubUpdater()
+    private var lastViewPagerPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activty_main)
         setSupportActionBar(toolbar)
-
+        supportActionBar?.title = null
 
         adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
@@ -67,14 +69,33 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        toolbarTitle.setCurrentText(adapter.getPageTitle(viewPager.currentItem))
+        toolbarTitle.clipToOutline = false
+        toolbarTitle.clipToPadding = false
+        val slideInBottom = AnimationUtils.loadAnimation(this, R.anim.slide_in_bottom)
+        val slideOutTop = AnimationUtils.loadAnimation(this, R.anim.slide_out_top)
+        val slideOutBottom = AnimationUtils.loadAnimation(this, R.anim.slide_out_bottom)
+        val slideInTop = AnimationUtils.loadAnimation(this, R.anim.slide_in_top)
+
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
+                if (lastViewPagerPosition < position) {
+                    toolbarTitle.inAnimation = slideInBottom
+                    toolbarTitle.outAnimation = slideOutTop
+                } else {
+                    toolbarTitle.inAnimation = slideInTop
+                    toolbarTitle.outAnimation = slideOutBottom
+                }
+                toolbarTitle.setText(adapter.getPageTitle(position))
+
                 navigation.selectedItemId = when (position) {
                     1 -> R.id.action_homework
                     2 -> R.id.action_exams
                     3 -> R.id.action_cafeteria
                     else -> R.id.action_substitutes
                 }
+
+                lastViewPagerPosition = position
             }
 
             override fun onPageScrollStateChanged(state: Int) {}
