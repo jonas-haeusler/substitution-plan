@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/date"
+        android:ellipsize="end"
         android:layout_toEndOf="@+id/completed"
         android:maxLines="1"
         android:textColor="@color/textColorPrimary"
