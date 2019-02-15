@@ -34,3 +34,14 @@ fun TextView.reverseStrikeThroughAnimation(): ValueAnimator {
     animator.start()
     return animator
 }
+
+fun TextView.isEllipsized(): Boolean {
+    layout?.let {
+        if (layout.lineCount > 0) {
+            if (layout.getEllipsisCount(layout.lineCount - 1) > 0) {
+                return true
+            }
+        }
+    }
+    return false
+}

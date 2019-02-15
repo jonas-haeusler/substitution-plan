@@ -24,6 +24,7 @@
                 android:visibility="gone">
 
                 <RelativeLayout
+                    android:padding="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -32,9 +33,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:paddingEnd="16dp"
-                        android:paddingStart="16dp"
-                        android:paddingTop="12dp"
                         android:text="@string/info"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="20sp"/>
@@ -45,9 +43,18 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/cardTitle"
                         android:autoLink="web|email"
-                        android:paddingBottom="16dp"
-                        android:paddingEnd="16dp"
-                        android:paddingStart="16dp"/>
+                        android:ellipsize="end"
+                        android:maxLines="5"/>
+
+                    <Button
+                        android:id="@+id/showMore"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardText"
+                        android:layout_alignParentEnd="true"
+                        android:padding="8dp"
+                        android:text="@string/show_more"/>
 
                 </RelativeLayout>
 

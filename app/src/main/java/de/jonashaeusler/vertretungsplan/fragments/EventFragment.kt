@@ -36,12 +36,13 @@ abstract class EventFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         retainInstance = true
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
         loadCompletedEvents()
         setupRecyclerView()
         reload.setOnClickListener { load() }
-        load()
         swipeRefreshLayout.setOnRefreshListener { load() }
         card.visibility = if (useInfoCard) View.VISIBLE else View.GONE
+        load()
     }
 
     abstract fun loadEvents()

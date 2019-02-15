@@ -21,10 +21,11 @@
     <string name="change_class_shortcut">Klassenkürzel ändern</string>
     <string name="licenses">Lizenzen</string>
     <string name="shrug">¯\\_(ツ)_/¯</string>
-    <string name="info">Info</string>
+    <string name="info">Information</string>
     <string name="updater_new_version_available">Eine aktuellere Version der Vertretungsplan-App ist verfügbar!</string>
     <string name="download">Download</string>
     <string name="ignore">Ignorieren</string>
+    <string name="show_more">Mehr anzeigen</string>
 
     <array name="courses">
         <item>Französisch</item>
