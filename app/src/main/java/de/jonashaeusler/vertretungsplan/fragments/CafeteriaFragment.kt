@@ -50,7 +50,7 @@ class CafeteriaFragment : EventFragment() {
             for (row in tableRows) {
                 menus.add(Event(simpleDateFormat.format(menuDate.timeInMillis),
                         row.getElementsByClass("menu").text().replace("\\s+".toRegex(), " "),
-                        "", Event.EventType.TYPE_CAFETERIA_MENU, false))
+                        "", Event.EventType.TYPE_CAFETERIA_MENU))
                 menuDate.add(Calendar.DAY_OF_MONTH, 1)
             }
         }
