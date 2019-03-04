@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ViewPagerAdapter
     private val updater = GitHubUpdater()
     private var lastViewPagerPosition = 0
+    private val substitutionFragment = SubstitutionFragment()
+    private val cafeteriaFragment = CafeteriaFragment()
+    private var homeworkFragment: HomeworkFragment? = null
+    private var examFragment: ExamFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,34 +39,41 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = null
 
         adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(SubstitutionFragment(), getString(R.string.tab_substitutes))
+        adapter.addFragment(substitutionFragment, getString(R.string.tab_substitutes))
         if (isClassSchoolApiEligible()) {
-            adapter.addFragment(HomeworkFragment(), getString(R.string.tab_homework))
-            adapter.addFragment(ExamFragment(), getString(R.string.tab_exams))
-            adapter.addFragment(CafeteriaFragment(), getString(R.string.tab_cafeteria))
-            navigation.visibility = View.VISIBLE
+            homeworkFragment = HomeworkFragment().apply {
+                adapter.addFragment(this, this@MainActivity.getString(R.string.tab_homework))
+            }
+            examFragment = ExamFragment().apply {
+                adapter.addFragment(this, this@MainActivity.getString(R.string.tab_exams))
+            }
         } else {
-            navigation.visibility = View.GONE
+            navigation.menu.removeItem(R.id.action_homework)
+            navigation.menu.removeItem(R.id.action_exams)
         }
+        adapter.addFragment(cafeteriaFragment, getString(R.string.tab_cafeteria))
+
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 3
 
         navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_substitutes -> {
-                    viewPager.currentItem = 0
+                    viewPager.currentItem = adapter.indexOf(substitutionFragment)
                     true
                 }
                 R.id.action_homework -> {
-                    viewPager.currentItem = 1
+                    viewPager.currentItem= adapter.indexOf(
+                            homeworkFragment ?: return@setOnNavigationItemSelectedListener false)
                     true
                 }
                 R.id.action_exams -> {
-                    viewPager.currentItem = 2
+                    viewPager.currentItem = adapter.indexOf(
+                            examFragment ?: return@setOnNavigationItemSelectedListener false)
                     true
                 }
                 R.id.action_cafeteria -> {
-                    viewPager.currentItem = 3
+                    viewPager.currentItem = adapter.indexOf(cafeteriaFragment)
                     true
                 }
                 else -> false
@@ -89,9 +100,10 @@ class MainActivity : AppCompatActivity() {
                 toolbarTitle.setText(adapter.getPageTitle(position))
 
                 navigation.selectedItemId = when (position) {
-                    1 -> R.id.action_homework
-                    2 -> R.id.action_exams
-                    3 -> R.id.action_cafeteria
+                    adapter.indexOf(substitutionFragment) -> R.id.action_substitutes
+                    adapter.indexOf(homeworkFragment) -> R.id.action_homework
+                    adapter.indexOf(examFragment) -> R.id.action_exams
+                    adapter.indexOf(cafeteriaFragment) -> R.id.action_cafeteria
                     else -> R.id.action_substitutes
                 }
 
@@ -107,6 +119,14 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null && !BuildConfig.DEBUG) {
             checkForUpdates()
         }
+    }
+
+    override fun recreate() {
+        super.recreate()
+
+        /* Reset viewPager and bottomNavigation to a common item, otherwise they may get out of sync */
+        viewPager.currentItem = adapter.indexOf(substitutionFragment)
+        navigation.selectedItemId = R.id.action_substitutes
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

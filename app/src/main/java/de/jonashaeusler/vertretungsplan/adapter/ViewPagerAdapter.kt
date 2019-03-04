@@ -43,6 +43,14 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     }
 
     /**
+     * Returns the index of the first occurrence of the
+     * specified [fragment] or -1 if there is no such fragment.
+     */
+    fun indexOf(fragment: Fragment?): Int {
+        return mFragmentList.indexOf(fragment)
+    }
+
+    /**
      * Remove a fragment previously added.
      *
      * @param position The fragment to remove.
