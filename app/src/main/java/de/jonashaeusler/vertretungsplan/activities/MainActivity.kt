@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_homework -> {
-                    viewPager.currentItem= adapter.indexOf(
+                    viewPager.currentItem = adapter.indexOf(
                             homeworkFragment ?: return@setOnNavigationItemSelectedListener false)
                     true
                 }
@@ -131,6 +131,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+
+        if (!isClassSchoolApiEligible()) {
+            menu.removeItem(R.id.menu_courses)
+        }
+
         return true
     }
 
