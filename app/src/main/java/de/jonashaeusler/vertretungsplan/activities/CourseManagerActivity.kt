@@ -11,15 +11,15 @@ import de.jonashaeusler.vertretungsplan.adapter.CourseAdapter
 import de.jonashaeusler.vertretungsplan.helpers.getIgnoredCourses
 import de.jonashaeusler.vertretungsplan.helpers.setIgnoredCourses
 import de.jonashaeusler.vertretungsplan.models.Course
-import kotlinx.android.synthetic.main.course_manager_layout.*
+import kotlinx.android.synthetic.main.activity_course_manager_layout.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 class CourseManagerActivity : AppCompatActivity() {
-    lateinit var courses: List<Course>
+    private lateinit var courses: List<Course>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.course_manager_layout)
+        setContentView(R.layout.activity_course_manager_layout)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -30,7 +30,6 @@ class CourseManagerActivity : AppCompatActivity() {
             Course(course, !ignoredCourses.contains(coursesRegex[index]), coursesRegex[index])
         }
 
-        recyclerView.hasFixedSize()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 

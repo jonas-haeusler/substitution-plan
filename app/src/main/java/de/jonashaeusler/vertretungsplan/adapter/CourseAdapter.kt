@@ -1,9 +1,9 @@
 package de.jonashaeusler.vertretungsplan.adapter
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.models.Course
@@ -15,15 +15,15 @@ class CourseAdapter(private val courseList: List<Course>) : RecyclerView.Adapter
     var checkedChangedListener: ((index: Int, value: Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseAdapter.ViewHolder {
-        val view = View.inflate(parent.context, R.layout.item_course, null)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_course, parent, false)
         return CourseAdapter.ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CourseAdapter.ViewHolder, position: Int) {
-        holder.title.text = courseList[position].course
-        holder.courseEnabled.isChecked = courseList[holder.adapterPosition].enabled
+        holder.course.text = courseList[position].course
+        holder.course.isChecked = courseList[holder.adapterPosition].enabled
 
-        holder.courseEnabled.setOnCheckedChangeListener { _, newValue ->
+        holder.course.setOnCheckedChangeListener { _, newValue ->
             checkedChangedListener?.invoke(holder.adapterPosition, newValue)
         }
     }
@@ -31,8 +31,7 @@ class CourseAdapter(private val courseList: List<Course>) : RecyclerView.Adapter
     override fun getItemCount() = courseList.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.courseTitle
-        val courseEnabled: Switch = view.courseEnabled
+        val course: Switch = view.courseEnabled
     }
 
 }
