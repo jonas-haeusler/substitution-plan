@@ -33,7 +33,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha02'
-    implementation 'com.google.android.material:material:1.1.0-alpha03'
+    implementation 'com.google.android.material:material:1.1.0-alpha04'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     final retrofit_version = "2.4.0"
