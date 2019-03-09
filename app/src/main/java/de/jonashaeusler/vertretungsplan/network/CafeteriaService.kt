@@ -7,11 +7,11 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 
 interface CafeteriaService {
-    @GET("/index.php/de/tagesmenue")
+    @GET("/api/cafeteria.html")
     fun fetch(): Call<Document>
 
     companion object {
-        private const val baseUrl = "https://www.kinzer-partyservice.de/"
+        private const val baseUrl = "https://vertretungsbot.ddnss.de//"
 
         fun create(): CafeteriaService {
             val retrofit: Retrofit = Retrofit.Builder()
