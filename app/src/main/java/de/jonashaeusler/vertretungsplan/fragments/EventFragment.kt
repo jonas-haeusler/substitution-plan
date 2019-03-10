@@ -54,7 +54,7 @@ abstract class EventFragment : Fragment() {
                 .filter {
                     it.getDateInMs() + DateUtils.DAY_IN_MILLIS > System.currentTimeMillis()
                 }.filterNot {
-                    it.type == Event.EventType.TYPE_HOMEWORK || it.type == Event.EventType.TYPE_EXAM
+                    (it.type == Event.EventType.TYPE_HOMEWORK || it.type == Event.EventType.TYPE_EXAM)
                             && it.title.matches(ignoredCourses)
                 }.filterNot {
                     it.type == Event.EventType.TYPE_SUBSTITUTE && it.text.contains(ignoredCourses)
