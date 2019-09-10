@@ -16,19 +16,19 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="de.jonashaeusler.vertretungsplan.activities.LoginActivity">
+            android:name="de.jonashaeusler.vertretungsplan.ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name="de.jonashaeusler.vertretungsplan.activities.MainActivity"/>
+        <activity android:name="de.jonashaeusler.vertretungsplan.ui.main.MainActivity"/>
 
         <activity
-            android:name=".activities.CourseManagerActivity"
+            android:name="de.jonashaeusler.vertretungsplan.ui.courses.CourseManagerActivity"
             android:label="@string/courses"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName="de.jonashaeusler.vertretungsplan.ui.main.MainActivity"/>
 
     </application>
 
