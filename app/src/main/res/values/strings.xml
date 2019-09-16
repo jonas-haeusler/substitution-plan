@@ -36,13 +36,11 @@
         <item>Evangelische Religion</item>
         <item>Physik</item>
         <item>Chemie</item>
-        <item>CT/7 (Donnerstag)</item>
-        <item>CT/8 (Montag)</item>
-        <item>ITÜ A (Morgens)</item>
-        <item>ITÜ B (Mittags)</item>
+        <item>CT/7 (Mittwoch)</item>
+        <item>CT/8 (Dienstag)</item>
+        <item>ITÜ A (A-Woche)</item>
+        <item>ITÜ B (B-Woche)</item>
         <item>GlobalStudies</item>
-        <item>Seminarkurs/IT</item>
-        <item>Seminarkurs/TDI</item>
         <item>Sport 1 (Gymnastik &amp; Tanz, Montag)</item>
         <item>Sport 2 (Geräteturnen &amp; Volleyball, Montag)</item>
         <item>Sport 3 (Leichtathletik &amp; Volleyball, Montag)</item>
@@ -67,8 +65,6 @@
         <item>ITÜ(\/|\ ?)A</item>
         <item>ITÜ(\/|\ ?)B</item>
         <item>GlobalStudies|GS</item>
-        <item>Seminarkurs(\/|\ ?)IT|Sem4</item>
-        <item>Seminarkurs(\/|\ ?)TDI</item>
         <item>S(port)*(\/|\ ?)1</item>
         <item>S(port)*(\/|\ ?)2</item>
         <item>S(port)*(\/|\ ?)3</item>
