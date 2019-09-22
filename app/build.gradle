@@ -19,6 +19,20 @@ android {
             versionNameSuffix "-debug"
             applicationIdSuffix ".debug"
             debuggable true
+
+            def user = ''
+            def password = ''
+
+            if (project.hasProperty("SUBSTITUTION_PLAN_API_USER")) {
+                user = SUBSTITUTION_PLAN_API_USER
+            }
+
+            if (project.hasProperty("SUBSTITUTION_PLAN_API_PASSWORD")) {
+                password = SUBSTITUTION_PLAN_API_PASSWORD
+            }
+
+            buildConfigField "String", "API_USER", "\"${user}\""
+            buildConfigField("String", "API_PASSWORD", "\"${password}\"")
         }
         release {
             minifyEnabled true
@@ -44,6 +58,8 @@ dependencies {
     final retrofit_version = "2.6.1"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     implementation 'org.jsoup:jsoup:1.12.1'
     implementation 'com.github.kevinsawicki:http-request:6.0'

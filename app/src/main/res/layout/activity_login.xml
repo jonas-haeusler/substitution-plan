@@ -25,7 +25,7 @@
             android:contentDescription="@string/username"
             android:padding="16dp"
             android:src="@drawable/ic_person_black"
-            android:tint="@color/colorAccent"/>
+            android:tint="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/username"
@@ -56,7 +56,7 @@
             android:contentDescription="@string/password"
             android:padding="16dp"
             android:src="@drawable/ic_lock_black"
-            android:tint="@color/colorAccent"/>
+            android:tint="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/password"
@@ -87,7 +87,7 @@
             android:contentDescription="@string/username"
             android:padding="16dp"
             android:src="@drawable/ic_exam"
-            android:tint="@color/colorAccent"/>
+            android:tint="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/text"
@@ -112,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
         android:text="@string/login"
         android:textColor="@android:color/white"/>
 

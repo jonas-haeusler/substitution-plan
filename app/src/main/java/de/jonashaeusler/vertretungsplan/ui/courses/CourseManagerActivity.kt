@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.jonashaeusler.vertretungsplan.R
-import de.jonashaeusler.vertretungsplan.util.getIgnoredCourses
-import de.jonashaeusler.vertretungsplan.util.setIgnoredCourses
+import de.jonashaeusler.vertretungsplan.data.local.getIgnoredCourses
+import de.jonashaeusler.vertretungsplan.data.local.setIgnoredCourses
 import de.jonashaeusler.vertretungsplan.data.entities.Course
-import kotlinx.android.synthetic.main.activity_course_manager_layout.*
+import kotlinx.android.synthetic.main.activity_course_manager.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 class CourseManagerActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class CourseManagerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_course_manager_layout)
+        setContentView(R.layout.activity_course_manager)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)

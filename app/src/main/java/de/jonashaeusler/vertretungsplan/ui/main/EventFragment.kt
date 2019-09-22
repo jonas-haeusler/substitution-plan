@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.jonashaeusler.vertretungsplan.R
-import de.jonashaeusler.vertretungsplan.util.getIgnoredCoursesAsRegex
+import de.jonashaeusler.vertretungsplan.data.local.getIgnoredCoursesAsRegex
 import de.jonashaeusler.vertretungsplan.data.entities.Event
 import kotlinx.android.synthetic.main.fragment_events.*
 

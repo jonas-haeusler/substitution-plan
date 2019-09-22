@@ -10,17 +10,21 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.jonashaeusler.vertretungsplan.BuildConfig
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.data.GitHubUpdater
-import de.jonashaeusler.vertretungsplan.ui.courses.CourseManagerActivity
 import de.jonashaeusler.vertretungsplan.data.entities.GitHubRelease
+import de.jonashaeusler.vertretungsplan.data.local.getClassShortcut
+import de.jonashaeusler.vertretungsplan.data.local.hasExtendedApiAccess
+import de.jonashaeusler.vertretungsplan.data.local.isClassSchoolApiEligible
+import de.jonashaeusler.vertretungsplan.data.local.logout
+import de.jonashaeusler.vertretungsplan.data.local.setClassShortcut
+import de.jonashaeusler.vertretungsplan.ui.courses.CourseManagerActivity
+import de.jonashaeusler.vertretungsplan.ui.edit.EditActivity
 import de.jonashaeusler.vertretungsplan.ui.login.LoginActivity
-import de.jonashaeusler.vertretungsplan.util.getClassShortcut
-import de.jonashaeusler.vertretungsplan.util.isClassSchoolApiEligible
-import de.jonashaeusler.vertretungsplan.util.logout
-import de.jonashaeusler.vertretungsplan.util.setClassShortcut
 import kotlinx.android.synthetic.main.activty_main.*
 import kotlinx.android.synthetic.main.dialog_text_input.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
@@ -128,23 +132,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
 
-        if (!isClassSchoolApiEligible()) {
-            menu.removeItem(R.id.menu_courses)
-        }
+        menu.findItem(R.id.menu_courses).isVisible = isClassSchoolApiEligible()
+        menu.findItem(R.id.menu_edit_entries).isVisible = hasExtendedApiAccess()
 
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when {
-            item.itemId == R.id.menu_logout -> {
+        when (item.itemId) {
+            R.id.menu_logout -> {
                 logout()
                 finish()
                 startActivity(Intent(this, LoginActivity::class.java))
             }
-            item.itemId == R.id.menu_change_class -> showClassChangerDialog()
-            item.itemId == R.id.menu_licenses -> showLicenseDialog()
-            item.itemId == R.id.menu_courses -> startCourseManagerActivity()
+            R.id.menu_edit_entries -> startActivity(Intent(this, EditActivity::class.java))
+            R.id.menu_change_class -> showClassChangerDialog()
+            R.id.menu_licenses -> showLicenseDialog()
+            R.id.menu_courses -> startCourseManagerActivity()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -173,7 +177,7 @@ class MainActivity : AppCompatActivity() {
         view.text.setHint(R.string.hint_class_shortcut)
         view.text.setSelection(view.text.length())
 
-        val builder = AlertDialog.Builder(this)
+        val builder = MaterialAlertDialogBuilder(this)
         builder.setTitle(R.string.change_class_shortcut)
         builder.setView(view)
         builder.setPositiveButton(R.string.okay) { _, _ ->
@@ -186,7 +190,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLicenseDialog() {
-        AlertDialog.Builder(this)
+        MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.licenses))
                 .setView(R.layout.dialog_licenses)
                 .setPositiveButton(R.string.okay, null)

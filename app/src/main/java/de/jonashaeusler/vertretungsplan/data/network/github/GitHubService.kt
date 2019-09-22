@@ -1,6 +1,7 @@
-package de.jonashaeusler.vertretungsplan.data.network
+package de.jonashaeusler.vertretungsplan.data.network.github
 
 import de.jonashaeusler.vertretungsplan.data.entities.GitHubRelease
+import de.jonashaeusler.vertretungsplan.data.network.GITHUB_BASE_URL
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

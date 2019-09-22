@@ -1,10 +1,8 @@
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
     android:minHeight="?attr/actionBarSize"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     app:layout_scrollFlags="scroll|enterAlways|snap">
@@ -17,13 +15,13 @@
         <TextView
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </TextSwitcher>
 
-</androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.MaterialToolbar>

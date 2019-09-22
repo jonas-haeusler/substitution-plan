@@ -1,6 +1,7 @@
-package de.jonashaeusler.vertretungsplan.data.network
+package de.jonashaeusler.vertretungsplan.data.network.api
 
 import com.github.slashrootv200.retrofithtmlconverter.HtmlConverterFactory
+import de.jonashaeusler.vertretungsplan.data.network.VERTRETUNGSBOT_BASE_URL
 import org.jsoup.nodes.Document
 import retrofit2.Call
 import retrofit2.Retrofit

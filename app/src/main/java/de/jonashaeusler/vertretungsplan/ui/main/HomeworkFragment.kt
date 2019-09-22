@@ -3,7 +3,7 @@ package de.jonashaeusler.vertretungsplan.ui.main
 import android.os.AsyncTask
 import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.data.entities.Event
-import de.jonashaeusler.vertretungsplan.data.network.HomeworkTask
+import de.jonashaeusler.vertretungsplan.data.network.api.HomeworkTask
 
 class HomeworkFragment : EventFragment(), OnEventsFetched {
     override val useInfoCard = false

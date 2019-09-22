@@ -1,7 +1,8 @@
-package de.jonashaeusler.vertretungsplan.util
+package de.jonashaeusler.vertretungsplan.data.local
 
 import android.content.Context
 import android.preference.PreferenceManager
+import de.jonashaeusler.vertretungsplan.BuildConfig
 
 /**
  * Utility class for basic "account" management.
@@ -80,3 +81,6 @@ fun Context.setIgnoredCourses(courses: List<String>) {
 // todo: don't hardcode the class shortcut
 fun Context.isClassSchoolApiEligible(): Boolean =
         getClassShortcut().contains(Regex("t?g?(i13|13/?4)", RegexOption.IGNORE_CASE))
+
+fun hasExtendedApiAccess(): Boolean =
+        BuildConfig.API_USER.isNotBlank() && BuildConfig.API_PASSWORD.isNotBlank()

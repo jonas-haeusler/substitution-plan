@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/completed"
         android:maxLines="1"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="16sp"/>
 
     <TextView

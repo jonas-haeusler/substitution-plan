@@ -26,6 +26,10 @@
     <string name="download">Download</string>
     <string name="ignore">Ignorieren</string>
     <string name="show_more">Mehr anzeigen</string>
+    <string name="menu_edit_entries">Einträge bearbeiten</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="tab_info">Info</string>
+    <string name="save">Speichern</string>
 
     <array name="courses">
         <item>Französisch</item>

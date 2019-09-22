@@ -8,7 +8,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import de.jonashaeusler.vertretungsplan.BuildConfig
 import de.jonashaeusler.vertretungsplan.data.entities.GitHubRelease
-import de.jonashaeusler.vertretungsplan.data.network.GitHubService
+import de.jonashaeusler.vertretungsplan.data.network.github.GitHubService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

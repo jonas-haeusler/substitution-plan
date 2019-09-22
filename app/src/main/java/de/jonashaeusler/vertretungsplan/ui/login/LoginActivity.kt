@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.ui.main.MainActivity
-import de.jonashaeusler.vertretungsplan.util.isLoggedIn
-import de.jonashaeusler.vertretungsplan.util.setClassShortcut
-import de.jonashaeusler.vertretungsplan.util.setPassword
-import de.jonashaeusler.vertretungsplan.util.setUsername
-import de.jonashaeusler.vertretungsplan.data.network.LoginTask
+import de.jonashaeusler.vertretungsplan.data.local.isLoggedIn
+import de.jonashaeusler.vertretungsplan.data.local.setClassShortcut
+import de.jonashaeusler.vertretungsplan.data.local.setPassword
+import de.jonashaeusler.vertretungsplan.data.local.setUsername
+import de.jonashaeusler.vertretungsplan.data.network.dsb.LoginTask
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 

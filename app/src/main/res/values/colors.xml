@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#212121</color>
-    <color name="colorPrimaryDark">#1C1C1D</color>
-    <color name="colorAccent">#3399FF</color>
+    <color name="colorPrimary">#3399FF</color>
+    <color name="colorBackground">#1C1C1D</color>
+    <color name="colorSurface">#212121</color>
+
 
     <color name="textColorPrimary">#FFFFFFFF</color>
     <color name="textColorSecondary">#B3FFFFFF</color>
@@ -10,7 +11,5 @@
     <color name="textColorHintDark">#80FFFFFF</color>
     <color name="rippleColorDark">#33FFFFFF</color>
 
-    <color name="background">@color/colorPrimaryDark</color>
-    <color name="cardBackgroundColor">#212121</color>
     <color name="iconColor">#8AFFFFFF</color>
 </resources>

@@ -1,7 +1,9 @@
-package de.jonashaeusler.vertretungsplan.data.network
+package de.jonashaeusler.vertretungsplan.data.network.dsb
 
 import android.os.AsyncTask
 import com.github.kevinsawicki.http.HttpRequest
+import de.jonashaeusler.vertretungsplan.data.network.DSB_BASE_URL
+import de.jonashaeusler.vertretungsplan.data.network.DSB_INVALID_AUTH_ID
 
 /**
  * Class to check whether the login credentials are correct.

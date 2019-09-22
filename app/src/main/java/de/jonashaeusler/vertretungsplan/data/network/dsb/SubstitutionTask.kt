@@ -1,13 +1,16 @@
-package de.jonashaeusler.vertretungsplan.data.network
+package de.jonashaeusler.vertretungsplan.data.network.dsb
 
 import android.content.Context
 import android.os.AsyncTask
 import com.github.kevinsawicki.http.HttpRequest
 import de.jonashaeusler.vertretungsplan.R
-import de.jonashaeusler.vertretungsplan.util.getClassShortcut
-import de.jonashaeusler.vertretungsplan.util.logout
+import de.jonashaeusler.vertretungsplan.data.local.getClassShortcut
+import de.jonashaeusler.vertretungsplan.data.local.logout
 import de.jonashaeusler.vertretungsplan.data.entities.Event
 import de.jonashaeusler.vertretungsplan.data.entities.Timetable
+import de.jonashaeusler.vertretungsplan.data.network.DSB_BASE_URL
+import de.jonashaeusler.vertretungsplan.data.network.DSB_INVALID_AUTH_ID
+import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
 import org.json.JSONArray
 import org.jsoup.Jsoup
 import java.lang.ref.WeakReference

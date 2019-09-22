@@ -1,7 +1,7 @@
 package de.jonashaeusler.vertretungsplan.ui.main
 
 import de.jonashaeusler.vertretungsplan.data.entities.Event
-import de.jonashaeusler.vertretungsplan.data.network.CafeteriaService
+import de.jonashaeusler.vertretungsplan.data.network.api.CafeteriaService
 import org.jsoup.nodes.Document
 import retrofit2.Call
 import retrofit2.Callback

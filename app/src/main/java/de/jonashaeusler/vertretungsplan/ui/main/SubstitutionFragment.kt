@@ -4,15 +4,15 @@ import android.os.AsyncTask
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import de.jonashaeusler.vertretungsplan.R
-import de.jonashaeusler.vertretungsplan.util.getPassword
-import de.jonashaeusler.vertretungsplan.util.getUsername
-import de.jonashaeusler.vertretungsplan.util.isClassSchoolApiEligible
+import de.jonashaeusler.vertretungsplan.data.local.getPassword
+import de.jonashaeusler.vertretungsplan.data.local.getUsername
+import de.jonashaeusler.vertretungsplan.data.local.isClassSchoolApiEligible
 import de.jonashaeusler.vertretungsplan.util.isEllipsized
 import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
-import de.jonashaeusler.vertretungsplan.data.network.OnInfoResolved
+import de.jonashaeusler.vertretungsplan.data.network.api.OnInfoResolved
 import de.jonashaeusler.vertretungsplan.data.entities.Event
-import de.jonashaeusler.vertretungsplan.data.network.InfoTask
-import de.jonashaeusler.vertretungsplan.data.network.SubstitutionTask
+import de.jonashaeusler.vertretungsplan.data.network.api.InfoTask
+import de.jonashaeusler.vertretungsplan.data.network.dsb.SubstitutionTask
 import kotlinx.android.synthetic.main.fragment_events.*
 import java.lang.ref.WeakReference
 

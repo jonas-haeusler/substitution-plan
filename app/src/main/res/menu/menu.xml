@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_change_class"
         android:title="@string/change_class_shortcut"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_courses"
         android:title="@string/courses"
-        app:showAsAction="never"/>
+        android:visible="false"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_edit_entries"
+        android:title="@string/menu_edit_entries"
+        android:visible="false"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_licenses"
         android:title="@string/licenses"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_logout"
         android:title="@string/logout"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
 </menu>
