@@ -4,12 +4,7 @@
     <color name="colorBackground">#1C1C1D</color>
     <color name="colorSurface">#212121</color>
 
-
     <color name="textColorPrimary">#FFFFFFFF</color>
     <color name="textColorSecondary">#B3FFFFFF</color>
     <color name="dividerColor">#1EFFFFFF</color>
-    <color name="textColorHintDark">#80FFFFFF</color>
-    <color name="rippleColorDark">#33FFFFFF</color>
-
-    <color name="iconColor">#8AFFFFFF</color>
 </resources>
