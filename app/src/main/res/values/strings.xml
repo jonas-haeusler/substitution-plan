@@ -45,14 +45,10 @@
         <item>ITÜ A (A-Woche)</item>
         <item>ITÜ B (B-Woche)</item>
         <item>GlobalStudies</item>
-        <item>Sport 1 (Gymnastik &amp; Tanz, Montag)</item>
-        <item>Sport 2 (Geräteturnen &amp; Volleyball, Montag)</item>
-        <item>Sport 3 (Leichtathletik &amp; Volleyball, Montag)</item>
-        <item>Sport 4 (Leichtathletik &amp; Fußball, Montag)</item>
-        <item>Sport 5 (Geräteturnen, Mittwoch)</item>
-        <item>Sport 6 (Leichtathletik &amp; Basketball, Mittwoch)</item>
-        <item>Sport 7 (Gymnastik &amp; Tanz, Mittwoch)</item>
-        <item>Sport 8 (Leichtathletik &amp; Handball, Mittwoch)</item>
+        <item>Sport 5 (EDB, Tanzen)</item>
+        <item>Sport 6 (PFF, Basketball)</item>
+        <item>Sport 7 (RIE, Volleyball)</item>
+        <item>Sport 8 (RLE, Fußball)</item>
     </array>
 
     <array name="courses_values">
@@ -69,10 +65,6 @@
         <item>ITÜ(\/|\ ?)A</item>
         <item>ITÜ(\/|\ ?)B</item>
         <item>GlobalStudies|GS</item>
-        <item>S(port)*(\/|\ ?)1</item>
-        <item>S(port)*(\/|\ ?)2</item>
-        <item>S(port)*(\/|\ ?)3</item>
-        <item>S(port)*(\/|\ ?)4</item>
         <item>S(port)*(\/|\ ?)5</item>
         <item>S(port)*(\/|\ ?)6</item>
         <item>S(port)*(\/|\ ?)7</item>
