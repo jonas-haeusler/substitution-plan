@@ -1,6 +1,7 @@
 package de.jonashaeusler.vertretungsplan.ui.edit
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import de.jonashaeusler.vertretungsplan.R
@@ -22,9 +23,8 @@ class EditActivity : AppCompatActivity(R.layout.activity_edit) {
         val schulbotApi = SchulbotApi.create()
 
         buttonGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            save.isEnabled = buttonGroup.checkedButtonId != View.NO_ID
             if (isChecked) {
-                save.isEnabled = true
-
                 val call = when (checkedId) {
                     R.id.homework -> schulbotApi.getPlaintextHomework()
                     R.id.exams -> schulbotApi.getPlaintextExams()
@@ -48,11 +48,11 @@ class EditActivity : AppCompatActivity(R.layout.activity_edit) {
                 })
             } else {
                 text.text = null
-                save.isEnabled = false
             }
         }
 
         save.setOnClickListener {
+            save.isEnabled = false
             val type = when (buttonGroup.checkedButtonId) {
                 R.id.homework -> "homework"
                 R.id.exams -> "exam"
@@ -74,13 +74,31 @@ class EditActivity : AppCompatActivity(R.layout.activity_edit) {
             ).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     Snackbar.make(container, "${response.code()} ${response.message()}", Snackbar.LENGTH_LONG).show()
+                    save.isEnabled = true
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     t.printStackTrace()
                     Snackbar.make(container, t.localizedMessage, Snackbar.LENGTH_LONG).show()
+                    save.isEnabled = true
                 }
             })
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(ARG_CHECKED_BUTTON, buttonGroup.checkedButtonId)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        buttonGroup.check(savedInstanceState?.getInt(ARG_CHECKED_BUTTON) ?: return)
+    }
+
+    companion object {
+        private const val ARG_CHECKED_BUTTON = "ARG_CHECKED_BUTTON"
     }
 }
