@@ -40,15 +40,15 @@
         <item>Evangelische Religion</item>
         <item>Physik</item>
         <item>Chemie</item>
-        <item>CT/7 (Mittwoch)</item>
-        <item>CT/8 (Dienstag)</item>
-        <item>ITÜ A (A-Woche)</item>
-        <item>ITÜ B (B-Woche)</item>
+        <item>CT/7 (Donnerstag, mit 2. Fremdsprache)</item>
+        <item>CT/8 (Dienstag, ohne 2. Fremdsprache)</item>
+        <item>ITÜ A (A-Woche, ohne 2. Fremdsprache)</item>
+        <item>ITÜ B (B-Woche, mit 2. Fremdsprache)</item>
         <item>GlobalStudies</item>
-        <item>Sport 5 (EDB, Tanzen)</item>
-        <item>Sport 6 (PFF, Basketball)</item>
-        <item>Sport 7 (RIE, Volleyball)</item>
-        <item>Sport 8 (RLE, Fußball)</item>
+        <item>Sport 5 (Frau Edbauer, Tanzen)</item>
+        <item>Sport 6 (Herr Pfeiffer, Basketball)</item>
+        <item>Sport 7 (Herr Riek, Volleyball)</item>
+        <item>Sport 8 (Herr Reichle, Fußball)</item>
     </array>
 
     <array name="courses_values">
