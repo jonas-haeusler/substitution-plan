@@ -13,7 +13,7 @@ import de.jonashaeusler.vertretungsplan.data.network.DSB_INVALID_AUTH_ID
 import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
 import org.json.JSONArray
 import org.jsoup.Jsoup
-import java.lang.Exception
+import java.lang.JSONException
 import java.lang.ref.WeakReference
 
 /**
@@ -51,7 +51,7 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
             // We'll convert that json file into our timetable model class
             val jsonArray = try {
                 JSONArray(timetableRequest)
-            } catch (e: Exception) {
+            } catch (e: JSONException) {
                 e.printStackTrace()
                 return false
             }
