@@ -12,8 +12,8 @@ import de.jonashaeusler.vertretungsplan.data.network.DSB_BASE_URL
 import de.jonashaeusler.vertretungsplan.data.network.DSB_INVALID_AUTH_ID
 import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
 import org.json.JSONArray
+import org.json.JSONException
 import org.jsoup.Jsoup
-import java.lang.JSONException
 import java.lang.ref.WeakReference
 
 /**
