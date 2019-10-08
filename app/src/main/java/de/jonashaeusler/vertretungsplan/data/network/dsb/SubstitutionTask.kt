@@ -3,18 +3,17 @@ package de.jonashaeusler.vertretungsplan.data.network.dsb
 import android.content.Context
 import android.os.AsyncTask
 import com.github.kevinsawicki.http.HttpRequest
-import de.jonashaeusler.vertretungsplan.R
-import de.jonashaeusler.vertretungsplan.data.local.getClassShortcut
-import de.jonashaeusler.vertretungsplan.data.local.logout
 import de.jonashaeusler.vertretungsplan.data.entities.Event
-import de.jonashaeusler.vertretungsplan.data.entities.Timetable
+import de.jonashaeusler.vertretungsplan.data.entities.Timetables
+import de.jonashaeusler.vertretungsplan.data.local.getClassShortcut
 import de.jonashaeusler.vertretungsplan.data.network.DSB_BASE_URL
-import de.jonashaeusler.vertretungsplan.data.network.DSB_INVALID_AUTH_ID
 import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 import org.jsoup.Jsoup
 import java.lang.ref.WeakReference
+
 
 /**
  * This class retrieves all available events which match the class filter,
@@ -29,47 +28,50 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
 
     override fun doInBackground(vararg args: String): Boolean {
         try {
-            // TODO: Can the authId be saved for further use?
-            val authIdRequest = HttpRequest
-                    .get("$DSB_BASE_URL/iPhoneService.svc/DSB/authid/${args[0]}/${args[1]}")
-                    .body()
-                    .removeSurrounding("\"")
-
-            // This is the authId for a failed login.
-            // Maybe the account got deactivated? Who knows.
-            // We'll just log the user out and call it a day.
-            if (authIdRequest == DSB_INVALID_AUTH_ID) {
-                context.get()?.logout() // TODO: We should probably show the login activity.
-                return false
-            }
-
-            // This request will contain a json file holding one or more "timetables"
-            val timetableRequest = HttpRequest
-                    .get("$DSB_BASE_URL/iPhoneService.svc/DSB/timetables/$authIdRequest")
+            val response = HttpRequest
+                    .post(DSB_BASE_URL)
+                    .contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8)
+                    .send(createRequestPayload(args[0], args[1]))
                     .body()
 
-            // We'll convert that json file into our timetable model class
-            val jsonArray = try {
-                JSONArray(timetableRequest)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-                return false
-            }
+            // The dsb request contains a single json formatted key/value pair where 'd' is always
+            // the key for the data
+            val compressedResponse = JSONObject(response).getString("d")
+
+            // The response is gzip+base64 compressed
+            val decompressedResponse = decompress(compressedResponse)
+
+            val data = JSONObject(decompressedResponse)
+            val jsonArray = getTimetable(data) ?: JSONArray()
+
             val timetableList = (0 until jsonArray.length())
                     .map { jsonArray.getJSONObject(it) }
                     .map {
-                        Timetable(
-                                it.getBoolean("ishtml"),
-                                it.getString("timetabledate"),
-                                it.getString("timetablegroupname"),
-                                it.getString("timetabletitle"),
-                                it.getString("timetableurl"))
+                        val jsonTimetables = it.getJSONArray("Childs")
+                        val timetables = (0 until jsonTimetables.length())
+                                .map { i -> jsonTimetables.getJSONObject(i) }
+                                .map { table ->
+                                    Timetables.Timetable(
+                                            id = table.getString("Id"),
+                                            date = table.getString("Date"),
+                                            title = table.getString("Title"),
+                                            url = table.getString("Detail"),
+                                            previewUrl = table.getString("Preview")
+                                    )
+                                }
+
+                        Timetables(
+                                id = it.getString("Id"),
+                                date = it.getString("Date"),
+                                title = it.getString("Title"),
+                                timetables = timetables
+                        )
                     }
 
             // Let's iterate over all the retrieved timetables, extract the necessary info
             // from the urls and parse them into our event module class
-            for (timetable in timetableList) {
-                val document = Jsoup.parse(HttpRequest.get(timetable.timetableUrl).body("iso-8859-1"))
+            for (timetable in timetableList[0].timetables) {
+                val document = Jsoup.parse(HttpRequest.get(timetable.url).body("iso-8859-1"))
                 for (substitutePlan in document.getElementsByTag("center")) {
                     val date = substitutePlan.getElementsByTag("div").text()
                     context.get()?.let { context ->
@@ -81,9 +83,9 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
                                 .filter { it[0].text().contains(context.getClassShortcut(), true) }
                                 .mapTo(substitutes) {
                                     Event(date = date,
-                                            title = String.format(context.getString(R.string.substitution_title),
+                                            title = String.format(context.getString(de.jonashaeusler.vertretungsplan.R.string.substitution_title),
                                                     it[2].text(), it[1].text()),
-                                            text = String.format(context.getString(R.string.substitution_text),
+                                            text = String.format(context.getString(de.jonashaeusler.vertretungsplan.R.string.substitution_text),
                                                     it[4].text(), it[6].text(), it[3].text(), it[5].text()),
                                             type = Event.EventType.TYPE_SUBSTITUTE)
                                 }
@@ -93,6 +95,9 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
 
             return true
         } catch (e: HttpRequest.HttpRequestException) {
+            e.printStackTrace()
+            return false
+        } catch (e: JSONException) {
             e.printStackTrace()
             return false
         }
@@ -105,5 +110,29 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
         } else {
             callback?.onEventFetchError()
         }
+    }
+
+    /**
+     * Finds the first key/value pair which indicates a timetable (MethodName=timetable) and
+     * returns an json-array containing a list of all available timetable or null, when no
+     * timetables where found.
+     */
+    private fun getTimetable(jsonObject: JSONObject): JSONArray? {
+        val keys = jsonObject.keys()
+
+        for (key in keys) {
+            if (key == "MethodName" && jsonObject[key] == "timetable") {
+                return jsonObject.getJSONObject("Root").getJSONArray("Childs")
+            } else if (jsonObject[key] is JSONObject) {
+                getTimetable(jsonObject[key] as JSONObject)
+            } else if (jsonObject[key] is JSONArray) {
+                val jsonArray = jsonObject.getJSONArray(key)
+                for (i in 0 until jsonArray.length()) {
+                    return getTimetable(jsonArray[i] as JSONObject)
+                }
+            }
+        }
+
+        return null
     }
 }

@@ -19,7 +19,6 @@ class CafeteriaFragment : EventFragment() {
             override fun onResponse(call: Call<Document>, response: Response<Document>) {
                 response.body()?.let {
                     try {
-                        println(parseMenus(it))
                         postEvents(parseMenus(it))
                     } catch (e: Exception) {
                         e.printStackTrace()
