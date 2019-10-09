@@ -62,7 +62,6 @@ interface SchulbotApi {
 
                         chain.proceed(newRequest)
                     }
-                    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                     .build()
         }
     }
