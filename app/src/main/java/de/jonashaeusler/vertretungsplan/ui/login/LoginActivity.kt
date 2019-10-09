@@ -2,15 +2,18 @@ package de.jonashaeusler.vertretungsplan.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import de.jonashaeusler.vertretungsplan.R
-import de.jonashaeusler.vertretungsplan.ui.main.MainActivity
 import de.jonashaeusler.vertretungsplan.data.local.isLoggedIn
+import de.jonashaeusler.vertretungsplan.data.local.setApiPassword
+import de.jonashaeusler.vertretungsplan.data.local.setApiUser
 import de.jonashaeusler.vertretungsplan.data.local.setClassShortcut
 import de.jonashaeusler.vertretungsplan.data.local.setPassword
 import de.jonashaeusler.vertretungsplan.data.local.setUsername
 import de.jonashaeusler.vertretungsplan.data.network.dsb.LoginTask
+import de.jonashaeusler.vertretungsplan.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
@@ -44,12 +47,20 @@ class LoginActivity : AppCompatActivity(), LoginTask.OnLogin {
                 }
             }
         }
+
+        expandApiLogin.setOnClickListener {
+            apiLoginContainer.visibility =
+                    if (apiLoginContainer.visibility == View.VISIBLE) View.GONE
+                    else View.VISIBLE
+        }
     }
 
     override fun onLoginSucceeded() {
         setUsername(username.text.toString())
         setPassword(password.text.toString())
         setClassShortcut(text.text.toString())
+        setApiUser(apiUsername.text.toString())
+        setApiPassword(apiPassword.text.toString())
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }

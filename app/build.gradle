@@ -19,20 +19,6 @@ android {
             versionNameSuffix "-debug"
             applicationIdSuffix ".debug"
             debuggable true
-
-            def user = ''
-            def password = ''
-
-            if (project.hasProperty("SUBSTITUTION_PLAN_API_USER")) {
-                user = SUBSTITUTION_PLAN_API_USER
-            }
-
-            if (project.hasProperty("SUBSTITUTION_PLAN_API_PASSWORD")) {
-                password = SUBSTITUTION_PLAN_API_PASSWORD
-            }
-
-            buildConfigField "String", "API_USER", "\"${user}\""
-            buildConfigField("String", "API_PASSWORD", "\"${password}\"")
         }
         release {
             minifyEnabled true

@@ -13,7 +13,6 @@ import de.jonashaeusler.vertretungsplan.util.startStrikeThroughAnimation
 import de.jonashaeusler.vertretungsplan.data.entities.Event
 import kotlinx.android.synthetic.main.item_event.view.*
 
-
 class EventAdapter(val events: MutableList<Event>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     var itemClickListener: ((event: Event) -> Unit)? = null

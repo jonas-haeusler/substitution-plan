@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3399FF</color>
     <color name="colorBackground">#1C1C1D</color>
     <color name="colorSurface">#212121</color>
+    <color name="colorOnSurface">#FFFFFF</color>
 
     <color name="textColorPrimary">#FFFFFFFF</color>
     <color name="textColorSecondary">#B3FFFFFF</color>

@@ -10,6 +10,8 @@ import de.jonashaeusler.vertretungsplan.BuildConfig
 
 private const val userUsername = "USER_USERNAME"
 private const val userPassword = "USER_PASSWORD"
+private const val apiUsername = "API_USERNAME"
+private const val apiPassword = "API_PASSWORD"
 private const val userClassShortcut = "USER_CLASS_SHORTCUT"
 private const val userIgnoredCourses = "USER_IGNORED_COURSES"
 
@@ -82,5 +84,30 @@ fun Context.setIgnoredCourses(courses: List<String>) {
 fun Context.isClassSchoolApiEligible(): Boolean =
         getClassShortcut().contains(Regex("t?g?(i13|13/?4)", RegexOption.IGNORE_CASE))
 
-fun hasExtendedApiAccess(): Boolean =
-        BuildConfig.API_USER.isNotBlank() && BuildConfig.API_PASSWORD.isNotBlank()
+fun Context.setApiUser(username: String) {
+    PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putString(apiUsername, username)
+            .apply()
+
+}
+
+fun Context.setApiPassword(password: String) {
+    PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putString(apiPassword, password)
+            .apply()
+}
+
+fun Context.getApiUsername(): String {
+    return PreferenceManager.getDefaultSharedPreferences(this)
+            .getString(apiUsername, "")!!
+}
+
+fun Context.getApiPassword(): String {
+    return PreferenceManager.getDefaultSharedPreferences(this)
+            .getString(apiPassword, "")!!
+}
+
+fun Context.hasExtendedApiAccess(): Boolean =
+        getApiUsername().isNotBlank() && getApiPassword().isNotBlank()

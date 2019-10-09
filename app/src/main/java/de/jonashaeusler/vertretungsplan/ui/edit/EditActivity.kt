@@ -20,7 +20,7 @@ class EditActivity : AppCompatActivity(R.layout.activity_edit) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        val schulbotApi = SchulbotApi.create()
+        val schulbotApi = SchulbotApi.create(this)
 
         buttonGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             save.isEnabled = buttonGroup.checkedButtonId != View.NO_ID

@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
-
 class CafeteriaFragment : EventFragment() {
     override val useInfoCard = false
 

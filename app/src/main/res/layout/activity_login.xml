@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include
-            layout="@layout/layout_toolbar"/>
+        <include layout="@layout/layout_toolbar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -25,7 +24,7 @@
             android:contentDescription="@string/username"
             android:padding="16dp"
             android:src="@drawable/ic_person_black"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/username"
@@ -35,15 +34,15 @@
             android:hint="@string/username"
             android:inputType="textPersonName"
             android:padding="16dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="56dp"/>
+            android:paddingStart="56dp"
+            android:paddingEnd="16dp" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/dividerColor"/>
+        android:background="@color/dividerColor" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,7 +55,7 @@
             android:contentDescription="@string/password"
             android:padding="16dp"
             android:src="@drawable/ic_lock_black"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/password"
@@ -66,15 +65,15 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="16dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="56dp"/>
+            android:paddingStart="56dp"
+            android:paddingEnd="16dp" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/dividerColor"/>
+        android:background="@color/dividerColor" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -87,7 +86,7 @@
             android:contentDescription="@string/username"
             android:padding="16dp"
             android:src="@drawable/ic_exam"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/text"
@@ -97,15 +96,97 @@
             android:hint="@string/hint_class_shortcut"
             android:inputType="textPersonName"
             android:padding="16dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="56dp"/>
+            android:paddingStart="56dp"
+            android:paddingEnd="16dp" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/dividerColor"/>
+        android:background="@color/dividerColor" />
+
+    <LinearLayout
+        android:id="@+id/apiLoginContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/username"
+                android:padding="16dp"
+                android:src="@drawable/ic_person_black"
+                android:tint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/apiUsername"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@null"
+                android:hint="@string/username"
+                android:inputType="textPersonName"
+                android:padding="16dp"
+                android:paddingStart="56dp"
+                android:paddingEnd="16dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerColor" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/password"
+                android:padding="16dp"
+                android:src="@drawable/ic_lock_black"
+                android:tint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/apiPassword"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@null"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:paddingStart="56dp"
+                android:paddingEnd="16dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerColor" />
+
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end|center_vertical"
+        android:padding="8dp"
+        android:id="@+id/expandApiLogin"
+        android:text="@string/login_advanced"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+        app:drawableEndCompat="@drawable/ic_expand_more"
+        app:drawableTint="@color/colorOnSurface" />
 
     <Button
         android:id="@+id/login"
@@ -114,6 +195,6 @@
         android:layout_margin="16dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/login"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

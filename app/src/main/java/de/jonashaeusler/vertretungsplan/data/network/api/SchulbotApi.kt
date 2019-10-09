@@ -1,6 +1,8 @@
 package de.jonashaeusler.vertretungsplan.data.network.api
 
-import de.jonashaeusler.vertretungsplan.BuildConfig
+import android.content.Context
+import de.jonashaeusler.vertretungsplan.data.local.getApiPassword
+import de.jonashaeusler.vertretungsplan.data.local.getApiUsername
 import de.jonashaeusler.vertretungsplan.data.network.VERTRETUNGSBOT_BASE_URL
 import okhttp3.Headers
 import okhttp3.OkHttpClient
@@ -31,10 +33,10 @@ interface SchulbotApi {
     ): Call<String>
 
     companion object {
-        fun create(): SchulbotApi {
+        fun create(context: Context): SchulbotApi {
 
             val retrofit: Retrofit = Retrofit.Builder()
-                    .client(httpClient())
+                    .client(httpClient(context))
                     .baseUrl(VERTRETUNGSBOT_BASE_URL)
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .build()
@@ -43,7 +45,7 @@ interface SchulbotApi {
             return retrofit.create(SchulbotApi::class.java)
         }
 
-        private fun httpClient(): OkHttpClient {
+        private fun httpClient(context: Context): OkHttpClient {
             return OkHttpClient.Builder()
                     .addInterceptor { chain ->
                         val request = chain.request()
@@ -52,8 +54,8 @@ interface SchulbotApi {
                                 .method(request.method(), request.body())
                                 .headers(Headers.Builder()
                                         .addAll(request.headers())
-                                        .addUnsafeNonAscii("user", BuildConfig.API_USER)
-                                        .addUnsafeNonAscii("password", BuildConfig.API_PASSWORD)
+                                        .addUnsafeNonAscii("user", context.getApiUsername())
+                                        .addUnsafeNonAscii("password", context.getApiPassword())
                                         .build()
                                 )
                                 .build()

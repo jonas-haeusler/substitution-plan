@@ -9,7 +9,6 @@ import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.data.entities.Course
 import kotlinx.android.synthetic.main.item_course.view.*
 
-
 class CourseAdapter(private val courseList: List<Course>) : RecyclerView.Adapter<CourseAdapter.ViewHolder>() {
 
     var checkedChangedListener: ((index: Int, value: Boolean) -> Unit)? = null

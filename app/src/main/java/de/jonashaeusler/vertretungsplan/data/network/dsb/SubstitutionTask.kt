@@ -14,7 +14,6 @@ import org.json.JSONObject
 import org.jsoup.Jsoup
 import java.lang.ref.WeakReference
 
-
 /**
  * This class retrieves all available events which match the class filter,
  * parses them to [Event] objects and returns them as a list sorted by [Event.date].

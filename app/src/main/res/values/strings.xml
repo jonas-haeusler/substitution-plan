@@ -30,6 +30,7 @@
     <string name="edit">Bearbeiten</string>
     <string name="tab_info">Info</string>
     <string name="save">Speichern</string>
+    <string name="login_advanced">Erweitert</string>
 
     <array name="courses">
         <item>Französisch</item>
