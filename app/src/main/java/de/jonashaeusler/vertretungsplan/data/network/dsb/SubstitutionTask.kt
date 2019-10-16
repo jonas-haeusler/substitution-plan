@@ -21,8 +21,10 @@ import java.lang.ref.WeakReference
  *
  * Pass the user credentials to [doInBackground].
  */
-class SubstitutionTask(private val context: WeakReference<Context>, private val callback: OnEventsFetched? = null) :
-        AsyncTask<String, Long, Result>() {
+class SubstitutionTask(
+        private val context: WeakReference<Context>,
+        private val callback: OnEventsFetched? = null
+) : AsyncTask<String, Long, Result>() {
 
     private val substitutes = mutableListOf<Event>()
 
@@ -40,8 +42,6 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
 
             // The response is gzip+base64 compressed
             val decompressedResponse = decompress(compressedResponse)
-
-            println(decompressedResponse)
 
             val data = JSONObject(decompressedResponse)
 

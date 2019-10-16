@@ -31,6 +31,13 @@
     <string name="tab_info">Info</string>
     <string name="save">Speichern</string>
     <string name="login_advanced">Erweitert</string>
+    <string name="notification_channel_substitutions_name">Vertretungen</string>
+    <string name="notification_channel_substitutions_id" translatable="false">channel_substitutions</string>
+
+    <plurals name="notification_substitutions_title">
+        <item quantity="one">%d neue Vertretung</item>
+        <item quantity="other">%d neue Vertretungen</item>
+    </plurals>
 
     <array name="courses">
         <item>Französisch</item>
