@@ -8,6 +8,7 @@ import de.jonashaeusler.vertretungsplan.data.entities.Timetables
 import de.jonashaeusler.vertretungsplan.data.local.getClassShortcut
 import de.jonashaeusler.vertretungsplan.data.network.DSB_BASE_URL
 import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
+import de.jonashaeusler.vertretungsplan.data.network.Result
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -21,11 +22,11 @@ import java.lang.ref.WeakReference
  * Pass the user credentials to [doInBackground].
  */
 class SubstitutionTask(private val context: WeakReference<Context>, private val callback: OnEventsFetched? = null) :
-        AsyncTask<String, Long, Boolean>() {
+        AsyncTask<String, Long, Result>() {
 
     private val substitutes = mutableListOf<Event>()
 
-    override fun doInBackground(vararg args: String): Boolean {
+    override fun doInBackground(vararg args: String): Result {
         try {
             val response = HttpRequest
                     .post(DSB_BASE_URL)
@@ -40,7 +41,15 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
             // The response is gzip+base64 compressed
             val decompressedResponse = decompress(compressedResponse)
 
+            println(decompressedResponse)
+
             val data = JSONObject(decompressedResponse)
+
+            if (data["Resultcode"] == 1) {
+                // Login credentials incorrect
+                return Result.Failure(data.getString("ResultStatusInfo"))
+            }
+
             val jsonArray = getTimetable(data) ?: JSONArray()
 
             val timetableList = (0 until jsonArray.length())
@@ -92,22 +101,25 @@ class SubstitutionTask(private val context: WeakReference<Context>, private val 
                 }
             }
 
-            return true
+            return Result.Success
         } catch (e: HttpRequest.HttpRequestException) {
             e.printStackTrace()
-            return false
+            return Result.Failure(e.localizedMessage)
         } catch (e: JSONException) {
             e.printStackTrace()
-            return false
+            return Result.Failure(e.localizedMessage)
         }
     }
 
-    override fun onPostExecute(result: Boolean) {
-        if (result) {
-            substitutes.sortBy { it.date }
-            callback?.onEventFetchSuccess(substitutes)
-        } else {
-            callback?.onEventFetchError()
+    override fun onPostExecute(result: Result?) {
+        when (result) {
+            is Result.Success -> {
+                substitutes.sortBy { it.date }
+                callback?.onEventFetchSuccess(substitutes)
+            }
+            is Result.Failure -> {
+                callback?.onEventFetchError(result.message)
+            }
         }
     }
 

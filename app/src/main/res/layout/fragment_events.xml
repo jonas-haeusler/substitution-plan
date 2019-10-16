@@ -87,7 +87,7 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/error_no_connection"
+            android:id="@+id/errorNoConnection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -101,7 +101,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/error_no_connection"
+            android:layout_below="@+id/errorNoConnection"
             android:layout_centerHorizontal="true"
             android:text="@string/reload"/>
 

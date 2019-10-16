@@ -21,14 +21,14 @@ class CafeteriaFragment : EventFragment() {
                         postEvents(parseMenus(it))
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        showErrorView()
+                        showErrorView(e.localizedMessage)
                     }
                 }
             }
 
             override fun onFailure(call: Call<Document>, t: Throwable) {
                 t.printStackTrace()
-                showErrorView()
+                showErrorView(t.localizedMessage)
             }
 
         })

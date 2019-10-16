@@ -1,8 +1,8 @@
 package de.jonashaeusler.vertretungsplan.ui.main
 
 import android.os.AsyncTask
-import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.data.entities.Event
+import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
 import de.jonashaeusler.vertretungsplan.data.network.api.HomeworkTask
 
 class HomeworkFragment : EventFragment(), OnEventsFetched {
@@ -18,9 +18,7 @@ class HomeworkFragment : EventFragment(), OnEventsFetched {
         postEvents(events)
     }
 
-    override fun onEventFetchError() {
-        showErrorView()
-    }
+    override fun onEventFetchError(message: String) = showErrorView(message)
 
     override fun onStop() {
         super.onStop()

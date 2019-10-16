@@ -4,17 +4,18 @@ import android.os.AsyncTask
 import com.github.kevinsawicki.http.HttpRequest
 import de.jonashaeusler.vertretungsplan.data.entities.Event
 import de.jonashaeusler.vertretungsplan.data.network.OnEventsFetched
+import de.jonashaeusler.vertretungsplan.data.network.Result
 import de.jonashaeusler.vertretungsplan.data.network.VERTRETUNGSBOT_BASE_URL
 
 /**
  * AsyncTask to get events from the "schulbot"-API.
  */
 class ExamTask(private val callback: OnEventsFetched? = null) :
-        AsyncTask<String, Long, Boolean>() {
+        AsyncTask<String, Long, Result>() {
 
     private val events = mutableListOf<Event>()
 
-    override fun doInBackground(vararg p0: String?): Boolean {
+    override fun doInBackground(vararg p0: String?): Result {
         return try {
             events.addAll((
                     HttpRequest.get("$VERTRETUNGSBOT_BASE_URL/api/ka.php").body())
@@ -26,20 +27,20 @@ class ExamTask(private val callback: OnEventsFetched? = null) :
                                 type = Event.EventType.TYPE_EXAM)
                     })
 
-            true
+            Result.Success
         } catch (e: HttpRequest.HttpRequestException) {
             e.printStackTrace()
-            false
+            Result.Failure(e.localizedMessage)
         }
         // TODO: What about exception thrown by parsing errors?
     }
 
-    override fun onPostExecute(result: Boolean) {
+    override fun onPostExecute(result: Result) {
         super.onPostExecute(result)
-        if (result) {
-            callback?.onEventFetchSuccess(events)
-        } else {
-            callback?.onEventFetchError()
+
+        when (result) {
+            is Result.Success -> callback?.onEventFetchSuccess(events)
+            is Result.Failure -> callback?.onEventFetchError(result.message)
         }
     }
 }

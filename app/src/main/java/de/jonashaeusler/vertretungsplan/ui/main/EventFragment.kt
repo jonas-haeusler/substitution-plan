@@ -14,8 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.jonashaeusler.vertretungsplan.R
-import de.jonashaeusler.vertretungsplan.data.local.getIgnoredCoursesAsRegex
 import de.jonashaeusler.vertretungsplan.data.entities.Event
+import de.jonashaeusler.vertretungsplan.data.local.getIgnoredCoursesAsRegex
 import kotlinx.android.synthetic.main.fragment_events.*
 
 abstract class EventFragment : Fragment() {
@@ -63,8 +63,9 @@ abstract class EventFragment : Fragment() {
         showRecyclerView()
     }
 
-    fun showErrorView() {
+    fun showErrorView(message: String) {
         swipeRefreshLayout.isRefreshing = false
+        errorNoConnection.text = message
         containerConnectionError.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
     }
