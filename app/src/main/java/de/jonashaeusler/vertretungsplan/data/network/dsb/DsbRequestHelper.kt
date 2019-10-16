@@ -20,7 +20,7 @@ private val requestPayload =
         """.trimIndent()
 
 /* The data string that has to be substituted in [requestPayload] */
-private const val requestPayloadDataString = """{"UserId": "%s", "UserPw": "%s", "BundleId": ""}"""
+private const val requestPayloadDataString = """{"UserId": "%s", "UserPw": "%s", "BundleId": "", "AppVersion": "2.0"}"""
 
 /**
  * Creates the correctly formatted and encrypted payload for a request towards the dsb endpoint.
