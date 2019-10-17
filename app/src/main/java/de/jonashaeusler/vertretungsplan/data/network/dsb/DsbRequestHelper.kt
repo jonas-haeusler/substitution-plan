@@ -5,6 +5,7 @@ import android.util.Base64InputStream
 import android.util.Base64OutputStream
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.util.*
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
 
@@ -20,7 +21,7 @@ private val requestPayload =
         """.trimIndent()
 
 /* The data string that has to be substituted in [requestPayload] */
-private const val requestPayloadDataString = """{"UserId": "%s", "UserPw": "%s", "BundleId": "", "AppVersion": "2.0"}"""
+private val requestPayloadDataString = """{"AppId": "${UUID.randomUUID()}", "UserId": "%s", "UserPw": "%s", "BundleId": "", "AppVersion": "2.5.9"}"""
 
 /**
  * Creates the correctly formatted and encrypted payload for a request towards the dsb endpoint.
