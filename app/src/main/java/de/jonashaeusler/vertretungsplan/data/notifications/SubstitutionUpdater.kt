@@ -20,7 +20,7 @@ class SubstitutionUpdater(context: Context) {
                     JOB_ID,
                     ComponentName(context, SubstitutionUpdateService::class.java)
             ).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY) // require any type of network
-                    .setPeriodic(10 * DateUtils.MINUTE_IN_MILLIS) // repeat every 10min
+                    .setPeriodic(30 * DateUtils.MINUTE_IN_MILLIS) // repeat every 30min
                     .setPersisted(true)
                     .build()
 
