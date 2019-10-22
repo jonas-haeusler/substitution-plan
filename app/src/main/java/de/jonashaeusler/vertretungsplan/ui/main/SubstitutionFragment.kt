@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import de.jonashaeusler.vertretungsplan.R
 import de.jonashaeusler.vertretungsplan.data.entities.Event
+import de.jonashaeusler.vertretungsplan.data.local.SubstitutionCache
 import de.jonashaeusler.vertretungsplan.data.local.getPassword
 import de.jonashaeusler.vertretungsplan.data.local.getUsername
 import de.jonashaeusler.vertretungsplan.data.local.isClassSchoolApiEligible
@@ -33,6 +34,7 @@ class SubstitutionFragment : EventFragment(), OnInfoResolved, OnEventsFetched {
     }
 
     override fun onEventFetchSuccess(events: List<Event>) {
+        SubstitutionCache(requireContext()).updateSubstitutes(events)
         postEvents(events)
     }
 
