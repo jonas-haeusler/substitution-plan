@@ -50,7 +50,7 @@ class SubstitutionNotification(private val context: Context) {
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.notification_channel_substitutions_name)
-            val importance = NotificationManager.IMPORTANCE_LOW
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel("channel_substitutions", name, importance)
 
             notificationManager.createNotificationChannel(channel)
