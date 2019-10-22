@@ -5,9 +5,20 @@ import android.util.Base64InputStream
 import android.util.Base64OutputStream
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
+
+/* Today's date with the time set to 0, formatted in a way to go along DSB's date format */
+private val today = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssSSSSS", Locale.US).format(
+        Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+)
 
 /* The dsb request payload template */
 private val requestPayload =
@@ -21,7 +32,20 @@ private val requestPayload =
         """.trimIndent()
 
 /* The data string that has to be substituted in [requestPayload] */
-private val requestPayloadDataString = """{"AppId": "${UUID.randomUUID()}", "UserId": "%s", "UserPw": "%s", "BundleId": "", "AppVersion": "2.5.9"}"""
+private val requestPayloadDataString = """
+    {
+        "AppId": "${UUID.randomUUID()}",
+        "UserId": "%s",
+        "UserPw": "%s",
+        "BundleId": "de.heinekingmedia.dsbmobile",
+        "Device": "Pixel",
+        "OsVersion": "28 9",
+        "Language": "en",
+        "Date": "$today",
+        "LastUpdate": "$today",
+        "AppVersion": "2.5.9"
+    }
+    """.trimIndent()
 
 /**
  * Creates the correctly formatted and encrypted payload for a request towards the dsb endpoint.
