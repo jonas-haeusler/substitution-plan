@@ -16,6 +16,7 @@ class SubstitutionNotification(private val context: Context) {
     private val notificationBuilder by lazy {
         NotificationCompat.Builder(context, context.getString(R.string.notification_channel_substitutions_id))
                 .setSmallIcon(R.drawable.ic_exam)
+                .setAutoCancel(true)
                 .setContentIntent(PendingIntent.getActivity(
                         context,
                         1,
