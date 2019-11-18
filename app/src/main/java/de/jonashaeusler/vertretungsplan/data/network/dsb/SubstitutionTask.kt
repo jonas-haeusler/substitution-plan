@@ -50,35 +50,32 @@ class SubstitutionTask(
                 return Result.Failure(data.getString("ResultStatusInfo"))
             }
 
-            val jsonArray = getTimetable(data) ?: JSONArray()
-
-            val timetableList = (0 until jsonArray.length())
-                    .map { jsonArray.getJSONObject(it) }
-                    .map {
-                        val jsonTimetables = it.getJSONArray("Childs")
-                        val timetables = (0 until jsonTimetables.length())
-                                .map { i -> jsonTimetables.getJSONObject(i) }
-                                .map { table ->
-                                    Timetables.Timetable(
-                                            id = table.getString("Id"),
-                                            date = table.getString("Date"),
-                                            title = table.getString("Title"),
-                                            url = table.getString("Detail"),
-                                            previewUrl = table.getString("Preview")
-                                    )
-                                }
-
-                        Timetables(
-                                id = it.getString("Id"),
-                                date = it.getString("Date"),
-                                title = it.getString("Title"),
-                                timetables = timetables
+            val jsonArray = getTimetable(data) ?: return Result.Failure()
+            val jsonTimetable = jsonArray.getJSONObject(0)
+            val jsonTimetableChilds = jsonTimetable.getJSONArray("Childs")
+            val childTimetables = (0 until jsonTimetableChilds.length())
+                    .map { i -> jsonTimetableChilds.getJSONObject(i) }
+                    .map { table ->
+                        Timetables.Timetable(
+                                id = table.getString("Id"),
+                                date = table.getString("Date"),
+                                title = table.getString("Title"),
+                                url = table.getString("Detail"),
+                                previewUrl = table.getString("Preview")
                         )
                     }
 
+            val timetables = Timetables(
+                    id = jsonTimetable.getString("Id"),
+                    date = jsonTimetable.getString("Date"),
+                    title = jsonTimetable.getString("Title"),
+                    timetables = childTimetables
+            )
+
+
             // Let's iterate over all the retrieved timetables, extract the necessary info
             // from the urls and parse them into our event module class
-            for (timetable in timetableList[0].timetables) {
+            for (timetable in timetables.timetables) {
                 val document = Jsoup.parse(HttpRequest.get(timetable.url).body("iso-8859-1"))
                 for (substitutePlan in document.getElementsByTag("center")) {
                     val date = substitutePlan.getElementsByTag("div").text()
