@@ -135,15 +135,16 @@ class SubstitutionTask(
             if (key == "MethodName" && jsonObject[key] == "timetable") {
                 return jsonObject.getJSONObject("Root").getJSONArray("Childs")
             } else if (jsonObject[key] is JSONObject) {
-                getTimetable(jsonObject[key] as JSONObject)
+                val timetables = getTimetable(jsonObject[key] as JSONObject)
+                if (timetables != null) return timetables
             } else if (jsonObject[key] is JSONArray) {
                 val jsonArray = jsonObject.getJSONArray(key)
                 for (i in 0 until jsonArray.length()) {
-                    return getTimetable(jsonArray[i] as JSONObject)
+                    val timetables = getTimetable(jsonArray[i] as JSONObject)
+                    if (timetables != null) return timetables
                 }
             }
         }
-
         return null
     }
 }
