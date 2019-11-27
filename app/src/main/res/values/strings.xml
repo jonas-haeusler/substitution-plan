@@ -46,8 +46,9 @@
         <item>Ethik</item>
         <item>Katholische Religion</item>
         <item>Evangelische Religion</item>
-        <item>Physik</item>
         <item>Chemie</item>
+        <item>Physik</item>
+        <item>Physik Übungen</item>
         <item>CT/7 (Donnerstag, mit 2. Fremdsprache)</item>
         <item>CT/8 (Dienstag, ohne 2. Fremdsprache)</item>
         <item>ITÜ A (A-Woche, ohne 2. Fremdsprache)</item>
@@ -66,8 +67,9 @@
         <item>Ethik|ETH.*</item>
         <item>Katholisch|Reli(\/|\ ?)Kath.*|REL.*</item>
         <item>Evangelisch|Reli(\/|\ ?)Ev.*|EVR.*</item>
-        <item>Physik|PH.*</item>
         <item>Chemie|CH.*</item>
+        <item>Physik|PH.*</item>
+        <item>PHÜ</item>
         <item>CT(\/|\ ?)7</item>
         <item>CT(\/|\ ?)8</item>
         <item>ITÜ(\/|\ ?)A</item>
